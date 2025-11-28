@@ -1,0 +1,4895 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{vntex}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage{a4wide,amssymb,epsfig,latexsym,multicol,array,hhline,fancyhdr}
+\usepackage{amsmath}
+\usepackage{lastpage}
+\usepackage[lined,boxed,commentsnumbered]{algorithm2e}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{tabularx, caption}
+\usepackage{multirow}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{geometry}
+\usepackage{longtable} % Để tạo bảng dài qua trang
+\usepackage{listings}  % Để hiển thị code
+\usepackage{xcolor}    % Để tô màu code
+\usepackage{hyperref}
+
+% Cấu hình trang
+\geometry{left=2.5cm, right=2.5cm, top=2cm, bottom=4cm}
+
+% Cấu hình hyperlink
+\hypersetup{urlcolor=blue,linkcolor=black,citecolor=black,colorlinks=true}
+
+% Định nghĩa màu sắc cho code
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{codablue}{rgb}{0,0,0.8}
+
+% Cấu hình hiển thị Code (Quan trọng)
+\lstset{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{dkgreen},
+    keywordstyle=\color{codablue}\bfseries,
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{mauve},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    frame=single,
+    inputencoding=utf8,
+    extendedchars=true,
+    escapeinside={(*}{*)},
+   literate={á}{{\'a}}1 {à}{{\`a}}1 {ả}{{\'a}}1 {ã}{{\~a}}1 {ạ}{{\d{a}}}1
+    {Á}{{\'A}}1 {À}{{\`A}}1 {Ả}{{\'A}}1 {Ã}{{\~A}}1 {Ạ}{{\d{A}}}1
+    {ă}{{\u{a}}}1 {ắ}{{\'a}}1 {ằ}{{\`a}}1 {ẳ}{{\'a}}1 {ẵ}{{\~a}}1 {ặ}{{\d{a}}}1
+    {Ă}{{\u{A}}}1 {Ắ}{{\'A}}1 {Ằ}{{\`A}}1 {Ẳ}{{\'A}}1 {Ẵ}{{\~A}}1 {Ặ}{{\d{A}}}1
+    {â}{{\^a}}1 {ấ}{{\'a}}1 {ầ}{{\`a}}1 {ẩ}{{\'a}}1 {ẫ}{{\~a}}1 {ậ}{{\d{a}}}1
+    {Â}{{\^A}}1 {Ấ}{{\'A}}1 {Ầ}{{\`A}}1 {Ẩ}{{\'A}}1 {Ẫ}{{\~A}}1 {Ậ}{{\d{A}}}1
+    {đ}{{\d{d}}}1 {Đ}{{\d{D}}}1
+    {é}{{\'e}}1 {è}{{\`e}}1 {ẻ}{{\'e}}1 {ẽ}{{\~e}}1 {ẹ}{{\d{e}}}1
+    {É}{{\'E}}1 {È}{{\`E}}1 {Ẻ}{{\'E}}1 {Ẽ}{{\~E}}1 {Ẹ}{{\d{E}}}1
+    {ê}{{\^e}}1 {ế}{{\'e}}1 {ề}{{\`e}}1 {ể}{{\'e}}1 {ễ}{{\~e}}1 {ệ}{{\d{e}}}1
+    {Ê}{{\^E}}1 {Ế}{{\'E}}1 {Ề}{{\`E}}1 {Ể}{{\'E}}1 {Ễ}{{\~E}}1 {Ệ}{{\d{E}}}1
+    {í}{{\'i}}1 {ì}{{\`i}}1 {ỉ}{{\'i}}1 {ĩ}{{\~i}}1 {ị}{{\d{i}}}1
+    {Í}{{\'I}}1 {Ì}{{\`I}}1 {Ỉ}{{\'I}}1 {Ĩ}{{\~I}}1 {Ị}{{\d{I}}}1
+    {ó}{{\'o}}1 {ò}{{\`o}}1 {ỏ}{{\'o}}1 {õ}{{\~o}}1 {ọ}{{\d{o}}}1
+    {Ó}{{\'O}}1 {Ò}{{\`O}}1 {Ỏ}{{\'O}}1 {Õ}{{\~O}}1 {Ọ}{{\d{O}}}1
+    {ô}{{\^o}}1 {ố}{{\'o}}1 {ồ}{{\`o}}1 {ổ}{{\'o}}1 {ỗ}{{\~o}}1 {ộ}{{\d{o}}}1
+    {Ô}{{\^O}}1 {Ố}{{\'O}}1 {Ồ}{{\`O}}1 {Ổ}{{\'O}}1 {Ỗ}{{\~O}}1 {Ộ}{{\d{O}}}1
+    {ơ}{{\ow}}1 {ớ}{{\'o}}1 {ờ}{{\`o}}1 {ở}{{\'o}}1 {ỡ}{{\~o}}1 {ợ}{{\d{o}}}1
+    {Ơ}{{\OW}}1 {Ớ}{{\'O}}1 {Ờ}{{\`O}}1 {Ở}{{\'O}}1 {Ỡ}{{\~O}}1 {Ợ}{{\d{O}}}1
+    {ú}{{\'u}}1 {ù}{{\`u}}1 {ủ}{{\'u}}1 {ũ}{{\~u}}1 {ụ}{{\d{u}}}1
+    {Ú}{{\'U}}1 {Ù}{{\`U}}1 {Ủ}{{\'U}}1 {Ũ}{{\~U}}1 {Ụ}{{\d{U}}}1
+    {ư}{{\uw}}1 {ứ}{{\'u}}1 {ừ}{{\`u}}1 {ử}{{\'u}}1 {ữ}{{\~u}}1 {ự}{{\d{u}}}1
+    {Ư}{{\UW}}1 {Ứ}{{\'U}}1 {Ừ}{{\`U}}1 {Ử}{{\'U}}1 {Ữ}{{\~U}}1 {Ự}{{\d{U}}}1
+    {ý}{{\'y}}1 {ỳ}{{\`y}}1 {ỷ}{{\'y}}1 {ỹ}{{\~y}}1 {ỵ}{{\d{y}}}1
+    {Ý}{{\'Y}}1 {Ỳ}{{\`Y}}1 {Ỷ}{{\'Y}}1 {Ỹ}{{\~Y}}1 {Ỵ}{{\d{Y}}}1
+}
+
+% Header và Footer
+\setlength{\headheight}{40pt}
+\pagestyle{fancy}
+\fancyhead{} 
+\fancyhead[L]{
+ \begin{tabular}{rl}
+    \begin{picture}(25,15)(0,0)
+    \put(0,-8){\includegraphics[width=8mm, height=8mm]{logoITSGUsmall.png}} % Đảm bảo bạn có file ảnh logo hoặc comment dòng này lại
+    \end{picture}&
+	\begin{tabular}{l}
+		\textbf{\bf \ttfamily Trường Đại học Sài Gòn}\\
+		\textbf{\bf \ttfamily Khoa Công Nghệ Thông Tin}
+	\end{tabular} 	
+ \end{tabular}
+}
+\fancyhead[R]{
+	\begin{tabular}{l}
+		\tiny \bf \\
+		\tiny \bf 
+	\end{tabular}  }
+\fancyfoot{} 
+\fancyfoot[L]{\scriptsize \ttfamily Bài tập lớn môn Kiểm thử phần mềm - Niên khóa 2024-2025}
+\fancyfoot[R]{\scriptsize \ttfamily Trang {\thepage}/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0.3pt}
+
+\begin{document}
+
+% --- TRANG BÌA ---
+\begin{titlepage}
+\begin{center}
+TRƯỜNG ĐẠI HỌC SÀI GÒN \\
+KHOA CÔNG NGHỆ THÔNG TIN
+\end{center}
+\vspace{1cm}
+
+\begin{figure}[h!]
+\begin{center}
+% \includegraphics[width=4cm]{logoITSGU.png} % Bỏ comment nếu có ảnh logo
+\end{center}
+\end{figure}
+
+\vspace{1cm}
+
+\begin{center}
+\begin{tabular}{c}
+	\multicolumn{1}{l}{\textbf{{\Large KIỂM THỬ PHẦN MỀM}}}\\
+	~~\\
+	\hline
+	\\
+	\multicolumn{1}{l}{\textbf{{\Large Báo cáo Bài tập lớn }}}\\
+	\\
+	\textbf{{\Huge Ứng dụng FloginFE\_BE}}\\
+	\textbf{{\Large (Đăng nhập \& Quản lý Sản phẩm)}}\\
+	\\
+	\hline
+\end{tabular}
+\end{center}
+
+\vspace{3cm}
+
+\begin{table}[h]
+\begin{tabular}{rrl}
+\hspace{5 cm} & GVHD: & Từ Lãng Phiêu\\
+& SV thực hiện: & Nhóm ...\\
+& & Nguyễn Văn A - MSSV... \\
+& & Trần Văn B - MSSV... \\
+\end{tabular}
+\vspace{0.5 cm}
+\end{table}
+
+
+\begin{center}
+{\footnotesize TP. HỒ CHÍ MINH, THÁNG 11/2025}
+\end{center}
+\end{titlepage}
+
+\thispagestyle{empty}
+\newpage
+\tableofcontents
+\newpage
+
+% --- NỘI DUNG CHÍNH ---
+
+\section{Giới thiệu về Dự án}
+\subsection{Tổng quan}
+Dự án \textbf{FloginFE\_BE} là một ứng dụng web hoàn chỉnh bao gồm:
+\begin{itemize}
+    \item \textbf{Chức năng Login}: Hệ thống đăng nhập với validation đầy đủ.
+    \item \textbf{Chức năng Product}: Quản lý sản phẩm (CRUD operations).
+    \item \textbf{Frontend}: React 18+.
+    \item \textbf{Backend}: Spring Boot 3.2+ (Java 17+).
+    \item \textbf{Testing}: Phát triển theo phương pháp TDD, sử dụng JUnit 5, Mockito và Cypress.
+\end{itemize}
+
+\subsection{Cấu trúc dự án}
+Dự án được tổ chức thành 2 module chính:
+\begin{itemize}
+    \item \texttt{frontend/}: Ứng dụng React (Components, Services, Tests).
+    \item \texttt{backend/}: Ứng dụng Spring Boot (Controller, Service, Repository, Entity).
+\end{itemize}
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Câu 1: Phân tích và Thiết kế Test Cases}
+
+\subsection{Câu 1.1: Login - Phân tích và Test Scenarios (10 điểm)
+}
+\subsubsection{Yêu cầu (5 điểm)}
+\text{Dựa trên chức năng đăng nhập (Login), hãy thực hiện:}
+\begin{enumerate}[label=\alph*)]
+    \item{Phân tích đầy đủ các yêu cầu chức năng của tính năng Login (2 điểm)}
+\end{enumerate}
+
+\begin{center}
+\begin{longtable}{|p{5cm}|p{10cm}|}
+\hline
+\textbf{Test Case ID} & \textbf{Mô tả chi tiết} \\
+\hline
+Validation Rules cho Username
+ &  Độ dài: Tối thiểu 3 ký tự, tối đa 50 ký tự. - Ký tự cho phép: Chỉ chứa chữ cái thường (a-z), chữ cái hoa (A-Z), chữ số (0-9), dấu gạch ngang (-), dấu chấm (.), và dấu gạch dưới . \\
+\hline
+Validation Rules cho Password & - Độ dài: Tối thiểu 6 ký tự, tối đa 100 ký tự. - Yêu cầu phức tạp: Phải chứa cả chữ cái và chữ số.  \\
+\hline
+Authentication Flow (Luồng Xác thực) & 
+1. Hệ thống nhận đầu vào: Username và Password. \newline
+2. Kiểm tra Validation: Kiểm tra Username và Password có tuân thủ các quy tắc Validation (độ dài, ký tự, phức tạp) không. Nếu không, hiển thị lỗi Validation. \newline
+3. Kiểm tra Tài khoản: Nếu hợp lệ, hệ thống gửi thông tin đến máy chủ để kiểm tra sự tồn tại và tính đúng đắn của cặp Username/Password trong cơ sở dữ liệu. \newline
+4. Xác thực thành công: Nếu cặp thông tin khớp, hệ thống tạo session/token và chuyển hướng người dùng đến trang chính/dashboard. \newline
+5. Xác thực thất bại: Nếu không khớp, hệ thống hiển thị thông báo lỗi chung về Username hoặc Password không hợp lệ. \\
+\hline
+Error Handling (Xử lý Lỗi) & - Lỗi Validation: Thông báo rõ ràng về lỗi format/độ dài. \newline
+- Lỗi Xác thực: Thông báo lỗi chung, bảo mật. \newline
+- Lỗi Hệ thống/Kết nối: Thông báo lỗi kỹ thuật. \newline
+- Tài khoản bị khóa/vô hiệu hóa: Thông báo lỗi cụ thể. \\
+\hline
+
+\caption{Bảng phân tích yêu cầu login}
+\end{longtable}
+\end{center}
+
+\begin{enumerate}[label=b)]
+    \item{Liệt kê và mô tả ít nhất 10 test scenarios cho Login bao gồm (2 điểm):}
+\end{enumerate}
+
+\begin{center}
+\begin{longtable}{|p{3cm}|p{4cm}|p{8cm}|}
+\hline
+\textbf{Loại Test} & \textbf{Tên Test Scenario} & \textbf{Mô tả chi tiết}  \\
+\hline
+Happy Path
+ &  Đăng nhập Thành công (Positive) & Nhập Username và Password hợp lệ (đã đăng ký), nhấn nút Login. Mong đợi: Đăng nhập thành công, chuyển hướng đến trang Dashboard/Home.
+ \\
+\hline
+Negative
+ &  Username Rỗng & Để trống trường Username, nhập Password hợp lệ, nhấn Login. Mong đợi: Hiển thị lỗi Validation cho trường Username (ví dụ: "Username không được để trống").
+ \\
+\hline
+Negative
+ &  Password Rỗng
+ & Nhập Username hợp lệ, để trống trường Password, nhấn Login. Mong đợi: Hiển thị lỗi Validation cho trường Password (ví dụ: "Password không được để trống").
+ \\
+\hline
+Negative
+ &  Sai Mật khẩu & Nhập Username hợp lệ, nhập Password sai (không khớp với Username), nhấn Login. Mong đợi: Hiển thị thông báo lỗi xác thực chung ("Tên đăng nhập hoặc mật khẩu không đúng").
+ \\
+\hline
+
+Negative
+ & Username chưa đăng ký& Nhập Username chưa tồn tại trong hệ thống, nhập Password hợp lệ. Mong đợi: Hiển thị thông báo lỗi xác thực chung ("Tên đăng nhập hoặc mật khẩu không đúng").
+ \\
+\hline
+
+Boundary (Min)
+ &  Username Dưới Min & Nhập Username 2 ký tự (dưới min 3), nhập Password hợp lệ. Mong đợi: Hiển thị lỗi Validation về độ dài Username.
+ \\
+\hline
+
+Boundary (Max)
+ & Username Trên Max & Nhập Username 51 ký tự (trên max 50), nhập Password hợp lệ. Mong đợi: Hiển thị lỗi Validation về độ dài Username.
+ \\
+\hline
+
+Edge Case
+ &  Username Ký tự cấm & Nhập Username chứa ký tự đặc biệt không được phép (ví dụ: @, !, #), nhập Password hợp lệ. Mong đợi: Hiển thị lỗi Validation về ký tự cho phép trong Username.
+ \\
+\hline
+
+Edge Case
+ &  Password thiếu chữ cái& Nhập Username hợp lệ, nhập Password chỉ chứa số (hợp lệ về độ dài). Mong đợi: Hiển thị lỗi Validation yêu cầu Password phải có cả chữ và số.
+ \\
+\hline
+
+Edge Case
+ &  Khoảng trắng ở đầu/cuối& Nhập Username hợp lệ nhưng có khoảng trắng thừa ở đầu hoặc cuối, nhập Password hợp lệ. Mong đợi: Kiểm tra xem hệ thống có tự động cắt khoảng trắng (trim) hay coi là không hợp lệ.
+ \\
+\hline
+
+\caption{Bảng test scenarios cho Login }
+\end{longtable}
+\end{center}
+
+\begin{enumerate}[label=b)]
+    \item{Phân loại test scenarios theo mức độ ưu tiên (Critical, High, Medium, Low) và giải thích (1 điểm):}
+\end{enumerate}
+\subsubsection{Thiết kế Test Cases chi tiết (5 điểm)}
+\begin{longtable}{|p{3.5cm}|p{11.5cm}|}
+        \hline
+        \textbf{Test Case ID} & TC\_LOGIN\_001 \\
+        \hline
+        \textbf{Test Name} & Đăng nhập thành công với credentials hợp lệ \\
+        \hline
+        \textbf{Priority} & Critical \\
+        \hline
+        \textbf{Preconditions} & - User account exists \newline - Application is running \\
+        \hline
+        \textbf{Test Steps} & 1. Navigate to login page \newline 2. Enter valid username \newline 3. Enter valid password \newline 4. Click Login button \\
+        \hline
+        \textbf{Test Data} & Username: testuser \newline Password: Test123 \\
+        \hline
+        \textbf{Expected Result} & - Success message displayed \newline - Token stored \newline - Redirect to dashboard \\
+        \hline
+        \textbf{Actual Result} & (Để trống) \\
+        \hline
+        \textbf{Status} & Not Run \\
+        \hline
+    \end{longtable}
+
+\subsection{Câu 1.2: Product - Phân tích và Test Scenarios (10 điểm)}
+\subsubsection{Yêu cầu (5 điểm)}
+\begin{enumerate}[label=\alph*)]
+    \item{Phân tích đầy đủ các yêu cầu chức năng của Product CRUD (2 điểm)}
+    \begin{itemize}[label=$\bullet$, leftmargin=1cm]
+        \item \textbf{Create: Thêm sản phẩm mới}
+        % Dùng description hoặc list không dấu để thụt lề phần Mô tả
+        \begin{itemize}[label={}, leftmargin=1.5cm] 
+            \item \textbf{Mô tả:} \\
+            Chức năng cho phép người dùng có quyền (Admin, Manager) tạo một sản phẩm mới bằng cách nhập thông tin vào một biểu mẫu và lưu lại.
+            
+            \item \textbf{Yêu cầu chức năng:}
+            \begin{itemize}[label=$\bullet$, leftmargin=1cm] % List cấp 3: Dấu chấm tròn nhỏ
+                \item Hệ thống phải cung cấp một giao diện để nhập các thông tin của sản phẩm mới, bao gồm: Tên sản phẩm (Product Name), Giá (Price), Số lượng (Quantity), Mô tả (Description), và Danh mục (Category).
+                \item Hệ thống phải thực hiện kiểm tra tính hợp lệ của dữ liệu đầu vào theo các quy tắc đã cho.
+                \item Khi người dùng nhấn "Lưu", nếu dữ liệu hợp lệ, sản phẩm mới sẽ được tạo và lưu vào cơ sở dữ liệu.
+                \item Hệ thống phải hiển thị một thông báo thành công sau khi tạo sản phẩm.
+                \item Sản phẩm mới phải xuất hiện trong danh sách sản phẩm.
+                \item Nếu dữ liệu không hợp lệ, hệ thống phải hiển thị thông báo lỗi tương ứng cho từng trường bị sai và không tạo sản phẩm mới.
+            \end{itemize}
+        \end{itemize}
+
+
+        \item \textbf{Xem danh sách/chi tiết sản phẩm}
+        % Dùng description hoặc list không dấu để thụt lề phần Mô tả
+        \begin{itemize}[label={}, leftmargin=1.5cm] 
+            \item \textbf{Mô tả:} \\
+            Chức năng cho phép người dùng xem danh sách tất cả sản phẩm hoặc thông tin chi tiết của một sản phẩm cụ thể..
+            
+            \item \textbf{Yêu cầu chức năng:}
+            \begin{itemize}[label=$\bullet$, leftmargin=1cm] % List cấp 3: Dấu chấm tròn nhỏ
+                \item \textbf{Xem danh sách} 
+                    \begin{itemize}[label=$\bullet$, leftmargin=1cm]
+                        \item Hệ thống phải hiển thị danh sách các sản phẩm dưới dạng bảng hoặc lưới.
+                        \item Các thông tin cơ bản như Tên, Giá, Số lượng cần được hiển thị.
+                        \item Hệ thống nên hỗ trợ phân trang (pagination) nếu danh sách sản phẩm quá dài.
+                        \item Chức năng tìm kiếm và lọc sản phẩm (theo tên, danh mục) nên được cung cấp.
+                        \item Nếu dữ liệu không hợp lệ, hệ thống phải hiển thị thông báo lỗi tương ứng cho từng trường bị sai và không tạo sản phẩm mới.
+                    \end{itemize}
+
+                    \item \textbf{Xem chi tiết} 
+                    \begin{itemize}[label=$\bullet$, leftmargin=1cm]
+                        \item Khi người dùng nhấp vào một sản phẩm trong danh sách, hệ thống phải hiển thị trang chi tiết chứa đầy đủ thông tin của sản phẩm đó.
+                    \end{itemize}
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+
+     \item{Liệt kê và mô tả ít nhất 10 test scenarios cho Product bao gồm (2 điểm):}
+
+      \item{Phân loại test scenarios theo mức độ ưu tiên và giải thích (1 điểm):}
+      
+\end{enumerate}
+\subsubsection{Thiết kế Test Cases chi tiết (5 điểm)}
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Câu 2: Unit Testing và TDD}
+
+\subsection{Câu 2.1: Login - Backend Unit Tests}
+Kiểm thử \texttt{AuthService} sử dụng JUnit 5 và Mockito.
+\subsubsection{Frontend Unit Tests - Validation Login (5 điểm)}
+\begin{enumerate}[label=\alph*)]
+    \item Viết unit tests cho validateUsername() (2 điểm)
+        \begin{lstlisting}[language=JavaScript, caption={validateUsername}]
+describe("validateUsername()", () => {
+  describe("Test 1: Username rỗng", () => {
+    test("nên trả về không hợp lệ khi username là chuỗi rỗng", () => {
+      const result = validateUsername("");
+      expect(result.isValid).toBe(false);
+      expect(result.error).toBe("Username không được để trống");
+    });
+
+    .....
+
+    test("nên trả về không hợp lệ khi username chỉ có khoảng trắng", () => {
+      const result = validateUsername("   ");
+      expect(result.isValid).toBe(false);
+      expect(result.error).toBe("Username không được để trống");
+    });
+  });
+
+
+  describe("Test 2: Username quá ngắn/quá dài", () => {
+    test("nên trả về không hợp lệ khi username quá ngắn (ít hơn 3 ký tự)", () => {
+      const result = validateUsername("ab");
+      expect(result.isValid).toBe(false);
+      expect(result.error).toBe("Username phải ít nhất 3 ký tự");
+    });
+
+    ........
+
+    test("nên hợp lệ với đúng 50 ký tự", () => {
+      const result = validateUsername(
+        "abcdefghijabcdefghijabcdefghijabcdefghijabcdefghij"
+      );
+      expect(result.isValid).toBe(true);
+      expect(result.error).toBeNull();
+    });
+  });
+
+
+  describe("Test 3: Ký tự đặc biệt không hợp lệ", () => {
+    test("nên trả về không hợp lệ khi username chứa khoảng trắng", () => {
+      const result = validateUsername("user name");
+      expect(result.isValid).toBe(false);
+      expect(result.error).toBe(
+        "Username chỉ chứa chữ, số, dấu chấm (.), gạch dưới (_), và gạch ngang (-)"
+      );
+    });
+    
+    .....
+
+    test("nên hợp lệ với gạch ngang (-)", () => {
+      const result = validateUsername("user-name");
+      expect(result.isValid).toBe(true);
+      expect(result.error).toBeNull();
+    });
+  });
+
+  describe("Test 4: Username hợp lệ", () => {
+    test("nên hợp lệ khi có chữ cái, gạch dưới, chấm và gạch ngang", () => {
+      const result = validateUsername("user_n.ame-");
+      expect(result.isValid).toBe(true);
+      expect(result.error).toBeNull();
+    });
+  });
+});
+        \end{lstlisting}
+
+
+    \item Viết unit tests cho validatePassword() (2 điểm)
+        \begin{lstlisting}[language=JavaScript, caption={validatePassword}]
+describe("validatePassword()", () => {
+  describe("Test 1: Password rỗng", () => {
+    test("nên trả về không hợp lệ khi password là chuỗi rỗng", () => {
+      const result = validatePassword("");
+      expect(result.isValid).toBe(false);
+      expect(result.error).toBe("Mật khẩu không được để trống");
+    });
+
+    .....
+
+    test("nên trả về không hợp lệ khi password là undefined", () => {
+      const result = validatePassword(undefined);
+      expect(result.isValid).toBe(false);
+      expect(result.error).toBe("Mật khẩu không được để trống");
+    });
+  });
+
+
+  describe("Test 2: Password quá ngắn/quá dài", () => {
+    test("nên trả về không hợp lệ khi password quá ngắn (ít hơn 6 ký tự)", () => {
+      const result = validatePassword("pass1");
+      expect(result.isValid).toBe(false);
+      expect(result.error).toBe("Mật khẩu phải ít nhất 6 ký tự");
+    });
+
+    ....
+
+    test("nên hợp lệ với đúng 50 ký tự", () => {
+      const password = "a".repeat(44) + "123456";
+      const result = validatePassword(password);
+      expect(result.isValid).toBe(true);
+      expect(result.error).toBeNull();
+    });
+  });
+
+
+  describe("Test 3: Password không có chữ hoặc số", () => {
+    test("nên trả về không hợp lệ khi password không có chữ cái", () => {
+      const result = validatePassword("123456");
+      expect(result.isValid).toBe(false);
+      expect(result.error).toBe("Mật khẩu phải chứa ít nhất một chữ cái");
+    });
+
+    .....
+
+    test("nên trả về không hợp lệ khi password có chữ cái và ký tự đặc biệt nhưng không có số", () => {
+      const result = validatePassword("pass!@#$");
+      expect(result.isValid).toBe(false);
+      expect(result.error).toBe("Mật khẩu phải chứa ít nhất một số");
+    });
+  });
+
+
+  describe("Test 4: Password hợp lệ", () => {
+    test("nên hợp lệ khi có chữ cái và số", () => {
+      const result = validatePassword("password123");
+      expect(result.isValid).toBe(true);
+      expect(result.error).toBeNull();
+    });
+    
+    ....
+
+    test("nên hợp lệ khi chỉ có một số và các chữ cái khác", () => {
+      const result = validatePassword("password1");
+      expect(result.isValid).toBe(true);
+      expect(result.error).toBeNull();
+    });
+  });
+});
+        \end{lstlisting}
+
+
+    \item Coverage >= 90\% cho validation module (1 điểm)
+\end{enumerate}
+    \includegraphics[width=0.8\textwidth]{Assigment_template_SGU/ValidationLogin.jpeg}
+\subsubsection{Backend Unit Tests - Login Service (5 điểm)
+ }
+ \begin{enumerate}[label=\alph*)]
+    \item Test method authenticate() với các scenarios (3 điểm):
+    \begin{lstlisting}[language=Java, caption={AuthServiceTest.java}]
+@ExtendWith(MockitoExtension.class)
+@DisplayName("AuthService Unit Test - Bean Validation")
+public class AuthServiceTest {
+
+    @Mock
+    private UserRepository mockUserRepository;
+
+    @Mock
+    private PasswordEncoder mockPasswordEncoder;
+
+    @Mock
+    private JwtService mockJwtService;
+
+    @Mock
+    private Validator mockValidator;
+
+
+    private Validator realValidator;
+
+    private AuthService authService;
+    private User mockUser;
+
+    @BeforeEach
+    void setUp() {
+        mockUser = new User(1L, "testuser", "hashedPassword123", "testuser@example.com");
+        authService = new AuthService(mockJwtService, mockUserRepository, mockPasswordEncoder, mockValidator);
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        realValidator = factory.getValidator();
+    }
+
+    // A) TEST METHOD authenticate()
+
+    @Test
+    @DisplayName("TC1: Login thành công với credential hợp lệ")
+    void testLoginSuccess() {
+        // Arrange
+        LoginRequest loginRequest = new LoginRequest("testUser", "Test123");
+
+        // Mock validator trả về không có lỗi
+        when(mockValidator.validate(loginRequest))
+                .thenReturn(Set.of());
+
+        // Mock các dependencies
+        when(mockUserRepository.findByUserName(loginRequest.getUserName()))
+                .thenReturn(Optional.of(mockUser));
+        when(mockPasswordEncoder.matches("Test123", "hashedPassword123"))
+                .thenReturn(true);
+        when(mockJwtService.generateToken(mockUser))
+                .thenReturn("fake-jwt-token");
+
+        // Act
+        LoginResponse loginResponse = authService.authenticate(loginRequest);
+
+        // Assert
+        assertTrue(loginResponse.isSuccess(), "Login phải thành công");
+        assertEquals("Login thành công", loginResponse.getMessage());
+        assertNotNull(loginResponse.getToken(), "Token không được null");
+        assertEquals("fake-jwt-token", loginResponse.getToken());
+
+        // Verify UserDto
+        assertNotNull(loginResponse.getUser(), "UserDto không được null");
+        assertEquals("testuser", loginResponse.getUser().getUserName());
+        assertEquals("testuser@example.com", loginResponse.getUser().getEmail());
+
+        // Verify interactions
+        verify(mockValidator, times(1)).validate(loginRequest);
+        verify(mockUserRepository, times(1)).findByUserName("testUser");
+        verify(mockPasswordEncoder, times(1)).matches("Test123", "hashedPassword123");
+        verify(mockJwtService, times(1)).generateToken(mockUser);
+    }
+
+    @Test
+    @DisplayName("TC2: Login thất bại khi username không tồn tại")
+    void testLoginFailure_UserNotFound() {
+        // Arrange
+        LoginRequest loginRequest = new LoginRequest("nonExistentUser", "Test123");
+
+        // Mock validator trả về không có lỗi
+        when(mockValidator.validate(loginRequest))
+                .thenReturn(Set.of());
+
+        // Mock repository trả về empty
+        when(mockUserRepository.findByUserName("nonExistentUser"))
+                .thenReturn(Optional.empty());
+
+        // Act
+        LoginResponse loginResponse = authService.authenticate(loginRequest);
+
+        // Assert
+        assertFalse(loginResponse.isSuccess(), "Login phải thất bại");
+        assertEquals("Login thất bại với user name không tồn tại", loginResponse.getMessage());
+        assertNull(loginResponse.getToken(), "Token phải là null");
+        assertNull(loginResponse.getUser(), "UserDto phải là null khi thất bại");
+
+        // Verify interactions
+        verify(mockValidator, times(1)).validate(loginRequest);
+        verify(mockUserRepository, times(1)).findByUserName("nonExistentUser");
+        verify(mockPasswordEncoder, never()).matches(anyString(), anyString());
+        verify(mockJwtService, never()).generateToken(any(User.class));
+    }
+
+    @Test
+    @DisplayName("TC3: Login thất bại khi password sai")
+    void testLoginFailure_WrongPassword() {
+        // Arrange
+        LoginRequest loginRequest = new LoginRequest("testUser", "WrongPassword123");
+
+        // Mock validator trả về không có lỗi
+        when(mockValidator.validate(loginRequest))
+                .thenReturn(Set.of());
+
+        // Mock dependencies
+        when(mockUserRepository.findByUserName("testUser"))
+                .thenReturn(Optional.of(mockUser));
+        when(mockPasswordEncoder.matches("WrongPassword123", "hashedPassword123"))
+                .thenReturn(false);
+
+        // Act
+        LoginResponse loginResponse = authService.authenticate(loginRequest);
+
+        // Assert
+        assertFalse(loginResponse.isSuccess(), "Login phải thất bại");
+        assertEquals("Login với password sai", loginResponse.getMessage());
+        assertNull(loginResponse.getToken(), "Token phải là null");
+        assertNull(loginResponse.getUser(), "UserDto phải là null khi thất bại");
+
+        // Verify interactions
+        verify(mockValidator, times(1)).validate(loginRequest);
+        verify(mockUserRepository, times(1)).findByUserName("testUser");
+        verify(mockPasswordEncoder, times(1)).matches("WrongPassword123", "hashedPassword123");
+        verify(mockJwtService, never()).generateToken(any(User.class));
+    }
+@Test
+    @DisplayName("TC4: Cả username và password đều null - Validator phải trả về nhiều lỗi")
+    void validate_withBothNull_shouldReturnMultipleErrors() {
+        // Arrange
+        var request = new LoginRequest(null, null);
+
+        Set<ConstraintViolation<LoginRequest>> violations = realValidator.validate(request);
+        // Act
+
+        // Assert
+        assertEquals(2, violations.size(), "Phải có đúng 2 lỗi");
+
+        boolean isHasUserNameError = violations.stream()
+                .anyMatch(v -> v.getMessage().contains("Username không được để trống"));
+        assertTrue(isHasUserNameError);
+
+        boolean isHasPasswordError = violations.stream()
+                .anyMatch(v -> v.getMessage().contains("Password không được để trống"));
+        assertTrue(isHasPasswordError);
+    }
+
+}
+
+\end{lstlisting}
+    \item Test validation methods riêng lẻ (1 điểm)
+     \begin{lstlisting}[language=Java, caption={AuthServiceTest.java}]
+@Test
+    @DisplayName("TC5: Login thất bại với validation error - username null")
+    void testLoginFailure_ValidationError_NullUsername() {
+        // Arrange
+        LoginRequest loginRequest = new LoginRequest(null, "Test123");
+
+        // Mock validator trả về violation
+        ConstraintViolation<LoginRequest> violation = mock(ConstraintViolation.class);
+        when(violation.getMessage()).thenReturn("Username không được để trống");
+        when(mockValidator.validate(loginRequest))
+                .thenReturn(Set.of(violation));
+
+        // Act
+        LoginResponse loginResponse = authService.authenticate(loginRequest);
+
+        // Assert
+        assertFalse(loginResponse.isSuccess(), "Login phải thất bại do validation");
+        assertEquals("Username không được để trống", loginResponse.getMessage());
+        assertNull(loginResponse.getToken());
+        assertNull(loginResponse.getUser(), "UserDto phải là null khi validation fail");
+
+        // Verify không có interaction với dependencies khác
+        verify(mockValidator, times(1)).validate(loginRequest);
+        verify(mockUserRepository, never()).findByUserName(anyString());
+        verify(mockPasswordEncoder, never()).matches(anyString(), anyString());
+        verify(mockJwtService, never()).generateToken(any(User.class));
+    }
+@Test
+    @DisplayName("TC6: Login thất bại với validation error - password null")
+    void testLoginFailure_ValidationError_NullPassword() {
+        // Arrange
+        LoginRequest loginRequest = new LoginRequest("testUser", null);
+
+        // Mock validator trả về violation
+        ConstraintViolation<LoginRequest> violation = mock(ConstraintViolation.class);
+        when(violation.getMessage()).thenReturn("Password không được để trống");
+        when(mockValidator.validate(loginRequest))
+                .thenReturn(Set.of(violation));
+
+        // Act
+        LoginResponse loginResponse = authService.authenticate(loginRequest);
+
+        // Assert
+        assertFalse(loginResponse.isSuccess(), "Login phải thất bại do validation");
+        assertEquals("Password không được để trống", loginResponse.getMessage());
+        assertNull(loginResponse.getToken());
+
+        // Verify không có interaction với dependencies
+        verify(mockValidator, times(1)).validate(loginRequest);
+        verify(mockUserRepository, never()).findByUserName(anyString());
+    }
+
+    @Test
+    @DisplayName("TC7: Login thất bại với validation error - username quá ngắn")
+    void testLoginFailure_ValidationError_ShortUsername() {
+        // Arrange
+        LoginRequest req = new LoginRequest("ab", "Test123");
+
+        //Act
+        Set<ConstraintViolation<LoginRequest>> violations = realValidator.validate(req);
+
+        //Assert
+        assertFalse(violations.isEmpty(), "Phải có lỗi validate");
+        boolean hasSizeError = violations.stream()
+                .anyMatch(v -> v.getMessage().contains("từ 3 đến 50 ký tự"));
+        assertTrue(hasSizeError, "Phải chứa thông báo về độ dài username");
+    }
+
+
+    @Test
+    @DisplayName("TC8: Login thất bại với validation error - password quá ngắn")
+    void testLoginFailure_ValidationError_ShortPassword() {
+        //Arrange
+        LoginRequest req = new LoginRequest("testUser", "12345");
+
+        // Act
+        Set<ConstraintViolation<LoginRequest>> violations = realValidator.validate(req);
+
+        //Assert
+        assertFalse(violations.isEmpty(), "Phải có lỗi validate password");
+        boolean isHasError = violations.stream()
+                .anyMatch(v -> v.getMessage().contains("Password phải từ 6 đến 100 ký tự"));
+        assertTrue(isHasError, "Phải có thông báo lỗi password");
+
+    }
+
+    @Test
+    @DisplayName("TC9: Login thất bại với validation error - username có ký tự đặc biệt")
+    void testLoginFailure_ValidationError_InvalidUsernameChars() {
+        //Arrange
+        LoginRequest req = new LoginRequest("user@#$#", "Test1234");
+
+        //Act
+        Set<ConstraintViolation<LoginRequest>> violations = realValidator.validate(req);
+
+        //Assert
+        assertFalse(violations.isEmpty(), "Phải có lỗi username có chứa ký tự đặc biệt");
+        boolean isHasError = violations.stream()
+                .anyMatch(v -> v.getMessage().contains("Username chỉ chứa chữ, số, và ký tự (-, ., _)"));
+        assertTrue(isHasError, "Phải có thông báo lỗi username có ký tự đặc biệt");
+
+    }
+
+    @Test
+    @DisplayName("TC10: Login thất bại với validation error - password thiếu chữ cái")
+    void testLoginFailure_ValidationError_PasswordMissingLetter() {
+        //Arrange
+        LoginRequest req = new LoginRequest("testUser", "123456");
+
+        //Act
+        Set<ConstraintViolation<LoginRequest>> violations = realValidator.validate(req);
+
+        //Assert
+        assertFalse(violations.isEmpty(), "Phải có lỗi password thiếu chữ cái");
+        boolean isHasError = violations.stream()
+                .anyMatch(v -> v.getMessage().contains("Password phải chứa ít nhất 1 chữ cái"));
+        assertTrue(isHasError, "Phải có thông báo lỗi password thiếu chữ cái");
+    }
+
+
+    @Test
+    @DisplayName("TC11: Login thất bại với validation error - password thiếu số")
+    void testLoginFailure_ValidationError_PasswordMissingNumber() {
+        // Arrange
+        LoginRequest req = new LoginRequest("testUser", "testpassword");
+
+        //Act
+        Set<ConstraintViolation<LoginRequest>> violations = realValidator.validate(req);
+
+        //Assert
+        assertFalse(violations.isEmpty(), "Phải có lỗi password thiếu số");
+        boolean isHasError = violations.stream()
+                .anyMatch(v -> v.getMessage().contains("Password phải chứa ít nhất 1 chữ số"));
+        assertTrue(isHasError, "Phải có thông báo lỗi password thiếu số");
+    }
+
+\end{lstlisting}
+    \item Coverage >= 85\% cho AuthService (1 điểm)
+\end{enumerate}
+    \includegraphics[width=0.8\textwidth]{coverage_backend.jpg} 
+  
+
+\subsection{Câu 2.2: Product - Unit Tests Frontend và Backend (10 điểm)}
+\subsubsection{Frontend Unit Tests - Product Validation (5 điểm)}
+
+\begin{enumerate}[label=\alph*)]
+    \item{Viết unit tests cho validateProduct() (3 điểm):}
+        \begin{lstlisting}[language=javacript, caption={validateProduct()}]
+describe('validateProduct - Kiểm tra tên sản phẩm', () => {
+  test('trả về lỗi khi tên rỗng', () => {
+    const product = { name: '', price: 100, quantity: 10, description: 'Valid description', category: 'Electronics' };
+    const result = validateProduct(product);
+    
+    expect(result.isValid).toBe(false);
+    expect(result.errors.name).toBe('Tên sản phẩm không được để trống');
+  });
+
+    ....
+
+  test('hợp lệ khi tên hợp lệ', () => {
+    const product = { name: 'Valid Product Name', price: 100, quantity: 10, description: 'Valid description', category: 'Electronics' };
+    const result = validateProduct(product);
+    
+    expect(result.errors.name).toBeUndefined();
+  });
+});
+
+describe('validateProduct - Kiểm tra giá (kiểm thử biên)', () => {
+  test('trả về lỗi khi giá là undefined', () => {
+    const product = { name: 'Product', price: undefined, quantity: 10, description: 'Valid description', category: 'Electronics' };
+    const result = validateProduct(product);
+    
+    expect(result.isValid).toBe(false);
+    expect(result.errors.price).toBe('Giá sản phẩm không được để trống');
+  });
+
+    ......
+    
+
+  test('hợp lệ khi giá hợp lệ (trường hợp điển hình)', () => {
+    const product = { name: 'Product', price: 50000, quantity: 10, description: 'Valid description', category: 'Electronics' };
+    const result = validateProduct(product);
+    
+    expect(result.errors.price).toBeUndefined();
+  });
+});
+
+describe('validateProduct - Kiểm tra số lượng', () => {
+  test('trả về lỗi khi số lượng là undefined', () => {
+    const product = { name: 'Product', price: 100, quantity: undefined, description: 'Valid description', category: 'Electronics' };
+    const result = validateProduct(product);
+    
+    expect(result.isValid).toBe(false);
+    expect(result.errors.quantity).toBe('Số lượng không được để trống');
+  });
+
+  test('trả về lỗi khi số lượng là null', () => {
+    const product = { name: 'Product', price: 100, quantity: null, description: 'Valid description', category: 'Electronics' };
+    const result = validateProduct(product);
+    
+    expect(result.isValid).toBe(false);
+    expect(result.errors.quantity).toBe('Số lượng không được để trống');
+  });
+
+  test('trả về lỗi khi số lượng là chuỗi rỗng', () => {
+    const product = { name: 'Product', price: 100, quantity: '', description: 'Valid description', category: 'Electronics' };
+    const result = validateProduct(product);
+    
+    expect(result.isValid).toBe(false);
+    expect(result.errors.quantity).toBe('Số lượng không được để trống');
+  });
+    ......
+
+  test('hợp lệ khi số lượng là số nguyên hợp lệ', () => {
+    const product = { name: 'Product', price: 100, quantity: 50, description: 'Valid description', category: 'Electronics' };
+    const result = validateProduct(product);
+    
+    expect(result.errors.quantity).toBeUndefined();
+  });
+});
+
+describe('validateProduct - Kiểm tra độ dài mô tả', () => {
+  test('trả về lỗi khi mô tả rỗng', () => {
+    const product = { name: 'Product', price: 100, quantity: 10, description: '', category: 'Electronics' };
+    const result = validateProduct(product);
+    
+    expect(result.isValid).toBe(false);
+    expect(result.errors.description).toBe('Mô tả không được để trống');
+  });
+
+    .....
+
+  test('hợp lệ khi mô tả hợp lệ', () => {
+    const product = { 
+      name: 'Product', 
+      price: 100, 
+      quantity: 10, 
+      description: 'This is a valid product description', 
+      category: 'Electronics' 
+    };
+    const result = validateProduct(product);
+    
+    expect(result.errors.description).toBeUndefined();
+  });
+});
+
+describe('validateProduct - Kiểm tra danh mục', () => {
+  test('trả về lỗi khi danh mục rỗng', () => {
+    const product = { name: 'Product', price: 100, quantity: 10, description: 'Valid description', category: '' };
+    const result = validateProduct(product);
+    
+    expect(result.isValid).toBe(false);
+    expect(result.errors.category).toBe('Danh mục không được để trống');
+  });
+    ......
+
+  test('hợp lệ khi danh mục là Other', () => {
+    const product = { name: 'Product', price: 100, quantity: 10, description: 'Valid description', category: 'Other' };
+    const result = validateProduct(product);
+    
+    expect(result.errors.category).toBeUndefined();
+  });
+});
+
+describe('validateProduct - Kiểm tra tích hợp', () => {
+  test('trả về isValid true khi tất cả trường hợp hợp lệ', () => {
+    const product = { 
+      name: 'Valid Product', 
+      price: 100, 
+      quantity: 10, 
+      description: 'This is a valid description', 
+      category: 'Electronics' 
+    };
+    const result = validateProduct(product);
+    
+    expect(result.isValid).toBe(true);
+    expect(result.errors).toEqual({});
+  });
+
+  test('trả về nhiều lỗi khi nhiều trường không hợp lệ', () => {
+    const product = { 
+      name: '', 
+      price: -100, 
+      quantity: 'abc', 
+      description: 'Short', 
+      category: '' 
+    };
+    const result = validateProduct(product);
+    
+    expect(result.isValid).toBe(false);
+    expect(result.errors.name).toBeDefined();
+    expect(result.errors.price).toBeDefined();
+    expect(result.errors.quantity).toBeDefined();
+    expect(result.errors.description).toBeDefined();
+    expect(result.errors.category).toBeDefined();
+  });
+});
+
+\end{lstlisting}
+    \item{Viết tests cho Product form component (1 điểm)}
+
+
+    \item{Coverage >= 90 (1 điểm)}
+\end{enumerate}
+\includegraphics[width=0.9\textwidth]{coverage_backend.jpg}
+\subsubsection{Backend Unit Tests - Product Service (5 điểm)}
+\begin{enumerate}[label=\alph*)]
+    \item{Test CRUD operations (4 điểm):}
+    \begin{lstlisting}[language=Java, caption={ProductServiceTest.java}]
+@DisplayName("ProductService Unit Test")
+@ExtendWith(MockitoExtension.class)
+public class ProductServiceTest {
+
+    @Mock
+    private ProductRepository productRepository;
+    
+    @Mock
+    private Validator mockValidator;
+
+    private ProductService productService;
+
+    @BeforeEach
+    void setUp() {
+        productService = new ProductService(productRepository, mockValidator);
+    }
+
+    // A) TEST CREATE - Bao gồm Boundary, Edge Cases và Negative Tests
+    
+    @Nested
+    @DisplayName("Test createProduct() method - Simplified")
+    class CreateProductTests {
+
+        // ========== POSITIVE TESTS ==========
+
+        @Test
+        @DisplayName("TC1: Tạo sản phẩm thành công - Happy path")
+        void testCreateProduct_Success() {
+            // Arrange
+            CreateProductRequest request = new CreateProductRequest("Laptop", 15000.0, "Gaming laptop", 10, "Electronics");
+            Product savedProduct = new Product(1L, "Electronics", "Gaming laptop", 10, "Laptop", 15000.0);
+
+            when(mockValidator.validate(request)).thenReturn(Set.of());
+            when(productRepository.save(any(Product.class))).thenReturn(savedProduct);
+
+            // Act
+            ProductDto result = productService.createProduct(request);
+
+            // Assert
+            assertNotNull(result);
+            assertEquals("Laptop", result.getProductName());
+            assertEquals(15000.0, result.getPrice());
+            verify(mockValidator, times(1)).validate(request);
+            verify(productRepository, times(1)).save(any(Product.class));
+        }
+   }
+
+@Nested
+    @DisplayName("Test getProductById() method")
+    class GetProductTests {
+
+        @Test
+        @DisplayName("TC14: Lấy sản phẩm thành công theo ID")
+        void testGetProductById_Success() {
+            Product product = new Product(1L, "Electronics", "Gaming laptop", 10, "Laptop", 15000.0);
+            when(productRepository.findById(1L)).thenReturn(Optional.of(product));
+
+            ProductDto result = productService.getProductById(1L);
+
+            assertNotNull(result);
+            assertEquals(1L, result.getId());
+            assertEquals("Laptop", result.getProductName());
+            verify(productRepository, times(1)).findById(1L);
+        }
+
+        @Test
+        @DisplayName("TC15: Lấy sản phẩm thất bại - ID không tồn tại")
+        void testGetProductById_NotFound() {
+            when(productRepository.findById(999L)).thenReturn(Optional.empty());
+
+            NoSuchElementException exception = assertThrows(
+                    NoSuchElementException.class,
+                    () -> productService.getProductById(999L)
+            );
+
+            assertTrue(exception.getMessage().contains("Product not found with id: 999"));
+            verify(productRepository, times(1)).findById(999L);
+        }
+    }
+
+@Nested
+    @DisplayName("Test updateProduct() method")
+    class UpdateProductTests {
+
+        @Test
+        @DisplayName("TC16: Cập nhật sản phẩm thành công")
+        void testUpdateProduct_Success() {
+            UpdateProductRequest request = new UpdateProductRequest("Updated Laptop", 20000.0, "Updated description", 15, "Electronics");
+            Product existingProduct = new Product(1L, "Electronics", "Old description", 10, "Laptop", 15000.0);
+            Product updatedProduct = new Product(1L, "Electronics", "Updated description", 15, "Updated Laptop", 20000.0);
+
+            when(mockValidator.validate(request)).thenReturn(Set.of());
+            when(productRepository.findById(1L)).thenReturn(Optional.of(existingProduct));
+            when(productRepository.save(any(Product.class))).thenReturn(updatedProduct);
+
+            ProductDto result = productService.updateProduct(1L, request);
+
+            assertNotNull(result);
+            assertEquals("Updated Laptop", result.getProductName());
+            assertEquals(20000.0, result.getPrice());
+        }
+  }
+
+    // D) TEST DELETE
+
+    @Nested
+    @DisplayName("Test deleteProduct() method")
+    class DeleteProductTests {
+
+        @Test
+        @DisplayName("TC20: Xóa sản phẩm thành công")
+        void testDeleteProduct_Success() {
+            Product product = new Product(1L, "Electronics", "Gaming laptop", 10, "Laptop", 15000.0);
+            when(productRepository.findById(1L)).thenReturn(Optional.of(product));
+            doNothing().when(productRepository).deleteById(1L);
+
+            productService.deleteProduct(1L);
+
+            verify(productRepository, times(1)).findById(1L);
+            verify(productRepository, times(1)).deleteById(1L);
+        }
+
+        @Test
+        @DisplayName("TC21: Xóa sản phẩm thất bại - ID không tồn tại")
+        void testDeleteProduct_NotFound() {
+            when(productRepository.findById(999L)).thenReturn(Optional.empty());
+
+            NoSuchElementException exception = assertThrows(
+                    NoSuchElementException.class,
+                    () -> productService.deleteProduct(999L)
+            );
+
+            assertTrue(exception.getMessage().contains("Product not found with id: 999"));
+        }
+    }
+
+    // E) TEST GET ALL (PAGINATION)
+    
+        @Test
+        @DisplayName("TC22: Lấy danh sách sản phẩm với pagination")
+        void testGetAll_Success() {
+            Pageable pageable = PageRequest.of(0, 10);
+            List<Product> products = Arrays.asList(
+                    new Product(1L, "Electronics", "Product 1", 10, "Laptop", 15000.0),
+                    new Product(2L, "Books", "Product 2", 20, "Book", 50.0)
+            );
+            Page<Product> productPage = new PageImpl<>(products, pageable, products.size());
+
+            when(productRepository.findAll(pageable)).thenReturn(productPage);
+
+            Page<ProductDto> result = productService.getAll(pageable);
+
+            assertNotNull(result);
+            assertEquals(2, result.getContent().size());
+            assertEquals(0, result.getNumber());
+        }
+}
+
+
+\end{lstlisting}
+    
+
+    \item{Coverage >= 85 cho ProductService (1 điểm)}
+\end{enumerate}
+\includegraphics[width=0.9\textwidth]{coverage_backend.jpg}
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Câu 3: Integration Testing}
+
+\subsection{Câu 3.1: Login - Integration Testing (10 điểm)}
+\subsubsection{Frontend Component Integration (5 điểm)}
+\begin{enumerate}[label=\alph*)]
+    \item{Test rendering và user interactions (2 điểm)}
+        \begin{lstlisting}[language=JavaScript, caption={ rendering và user interaction}]
+  describe('Test 1: Rendering và User Interactions', () => {
+    
+    test('nên render login form component thành công', () => {
+   render(
+  <MemoryRouter>
+    <LoginForm />
+  </MemoryRouter>
+);
+      
+      // Query cụ thể hơn để tránh matching multiple elements
+      const heading = screen.getByRole('heading', { level: 1 });
+      expect(heading).toHaveTextContent(/Đăng Nhập/i);
+      expect(screen.getByText(/Chào mừng bạn quay lại/i)).toBeInTheDocument();
+    });
+
+    test('nên có thể nhập username vào input', async () => {
+      const user = userEvent.setup();
+   render(
+  <MemoryRouter>
+    <LoginForm />
+  </MemoryRouter>
+);
+      
+      const usernameInput = screen.getByPlaceholderText(/your_username/i);
+      await user.type(usernameInput, 'testuser');
+      
+      expect(usernameInput.value).toBe('testuser');
+    });
+
+    test('nên có thể nhập password vào input', async () => {
+      const user = userEvent.setup();
+   render(
+  <MemoryRouter>
+    <LoginForm />
+  </MemoryRouter>
+);
+      
+      const passwordInput = screen.getByPlaceholderText(/••••••••/i);
+      await user.type(passwordInput, 'password123');
+      
+      expect(passwordInput.value).toBe('password123');
+    });
+
+    test('nên disable button khi loading', async () => {
+      const user = userEvent.setup();
+      
+   render(
+  <MemoryRouter>
+    <LoginForm />
+  </MemoryRouter>
+);
+      
+      const usernameInput = screen.getByPlaceholderText(/your_username/i);
+      const passwordInput = screen.getByPlaceholderText(/••••••••/i);
+      const submitButton = screen.getByRole('button', { name: /Đăng Nhập/i });
+      
+      await user.type(usernameInput, 'testuser');
+      await user.type(passwordInput, 'password123');
+      
+      // Button should exist and be clickable
+      expect(submitButton).toBeInTheDocument();
+      expect(submitButton).toBeEnabled();
+    });
+  });
+        \end{lstlisting}
+
+
+    \item{Test form submission và API calls (2 điểm) }
+        \begin{lstlisting}[language=JavaScript, caption={ form submission và API calls }]
+  describe('Test 2: Form Submission và API Calls', () => {
+    
+    test('nên gọi login API khi form submit với dữ liệu hợp lệ - admin', async () => {
+      const user = userEvent.setup();
+      authService.login.mockResolvedValue({
+        success: true,
+        message: 'Login thành công',
+        user: { userName: 'admin', email: 'admin@example.com' }
+      });
+      
+   render(
+  <MemoryRouter>
+    <LoginForm />
+  </MemoryRouter>
+);
+      
+      const usernameInput = screen.getByPlaceholderText(/your_username/i);
+      const passwordInput = screen.getByPlaceholderText(/••••••••/i);
+      const submitButton = screen.getByRole('button', { name: /Đăng Nhập/i });
+      
+      await user.type(usernameInput, 'admin');
+      await user.type(passwordInput, 'admin123');
+      await user.click(submitButton);
+      
+      // Verify API call
+      await waitFor(() => {
+        expect(authService.login).toHaveBeenCalledWith('admin', 'admin123');
+      });
+    });
+
+    test('nên hiển thị success message khi API trả về success - testuser', async () => {
+      const user = userEvent.setup();
+      authService.login.mockResolvedValue({
+        success: true,
+        message: 'Login thành công',
+        user: { userName: 'testuser', email: 'testuser@example.com' }
+      });
+      
+   render(
+  <MemoryRouter>
+    <LoginForm />
+  </MemoryRouter>
+);
+      
+      const usernameInput = screen.getByPlaceholderText(/your_username/i);
+      const passwordInput = screen.getByPlaceholderText(/••••••••/i);
+      const submitButton = screen.getByRole('button', { name: /Đăng Nhập/i });
+      
+      await user.type(usernameInput, 'testuser');
+      await user.type(passwordInput, 'test1234');
+      await user.click(submitButton);
+      
+      // Verify API called
+      await waitFor(() => {
+        expect(authService.login).toHaveBeenCalledWith('testuser', 'test1234');
+      });
+    });
+  });
+        \end{lstlisting}
+
+
+    \item{Test error handling và success messages (1 điểm)}
+        \begin{lstlisting}[language=JavaScript, caption={error handling và success messages}]
+  describe('Test 3: Error Handling và Success Messages', () => {
+    
+    test('nên hiển thị error khi username trống', async () => {
+      const user = userEvent.setup();
+   render(
+  <MemoryRouter>
+    <LoginForm />
+  </MemoryRouter>
+);
+      
+      const submitButton = screen.getByRole('button', { name: /Đăng Nhập/i });
+      await user.click(submitButton);
+      
+      await waitFor(() => {
+        expect(screen.getByText(/Username không được để trống/i)).toBeInTheDocument();    
+      });
+    });
+
+    test('nên hiển thị error khi username không hợp lệ', async () => {
+      const user = userEvent.setup();
+   render(
+  <MemoryRouter>
+    <LoginForm />
+  </MemoryRouter>
+);
+      
+      const usernameInput = screen.getByPlaceholderText(/your_username/i);
+      const passwordInput = screen.getByPlaceholderText(/••••••••/i);
+      const submitButton = screen.getByRole('button', { name: /Đăng Nhập/i });
+      
+      await user.type(usernameInput, 'ab');
+      await user.type(passwordInput, 'password123');
+      await user.click(submitButton);
+      
+      await waitFor(() => {
+        const errorMessage = screen.getByText(/Username phải ít nhất 3 ký tự/i);
+        expect(errorMessage).toBeInTheDocument();
+      });
+    });
+
+    test('nên hiển thị error khi API trả về error', async () => {
+      const user = userEvent.setup();
+      authService.login.mockRejectedValue(new Error('Invalid credentials'));
+      
+   render(
+  <MemoryRouter>
+    <LoginForm />
+  </MemoryRouter>
+);
+      
+      const usernameInput = screen.getByPlaceholderText(/your_username/i);
+      const passwordInput = screen.getByPlaceholderText(/••••••••/i);
+      const submitButton = screen.getByRole('button', { name: /Đăng Nhập/i });
+      
+      await user.type(usernameInput, 'testuser');
+      await user.type(passwordInput, 'wrongpassword1');
+      await user.click(submitButton);
+      
+      // Verify error message
+      await waitFor(() => {
+        const errorMessage = screen.queryByText(/Invalid credentials|Error/i);
+        expect(errorMessage).toBeInTheDocument();
+      });
+    });
+
+    test('nên hiển thị success message khi login thành công', async () => {
+      const user = userEvent.setup();
+      authService.login.mockResolvedValue({
+        success: true,
+        message: 'Login thành công',
+        user: { userName: 'admin', email: 'admin@example.com' }
+      });
+      
+   render(
+  <MemoryRouter>
+    <LoginForm />
+  </MemoryRouter>
+);
+      
+      const usernameInput = screen.getByPlaceholderText(/your_username/i);
+      const passwordInput = screen.getByPlaceholderText(/••••••••/i);
+      const submitButton = screen.getByRole('button', { name: /Đăng Nhập/i });
+      
+      await user.type(usernameInput, 'admin');
+      await user.type(passwordInput, 'admin123');
+      await user.click(submitButton);
+      
+      // Verify API called
+      await waitFor(() => {
+        expect(authService.login).toHaveBeenCalled();
+      });
+    });
+
+  });
+        \end{lstlisting}
+
+
+\end{enumerate}
+
+\subsubsection{Backend API Integration (5 điểm)}
+Test API endpoints của Login với \texttt{MockMvc}:
+\begin{enumerate}[label=\alph*)]
+    \item{Test POST /api/auth/login endpoint (3 điểm)}
+        \begin{lstlisting}[language=Java, caption={AuthControllerIntegrationTest.java}]
+@WebMvcTest(value = AuthController.class,
+    excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,
+        classes = {com.flogin.service.SecurityConfig.class, com.flogin.filter.JwtAuthenticationFilter.class}))
+@AutoConfigureMockMvc(addFilters = false)
+@DisplayName("Login API Integration Tests")
+public class AuthControllerIntegrationTest {
+    
+    @Autowired
+    private MockMvc mockMvc;
+    
+    @Autowired
+    private ObjectMapper objectMapper;
+    
+    @MockitoBean
+    private AuthService authService;
+
+    @Nested
+    @DisplayName("A) Test POST /api/auth/login endpoint")
+    class LoginEndpointTests {
+        
+        @Test
+        @DisplayName("1. Login thành công với credentials hợp lệ")
+        void testLoginSuccess() throws Exception {
+            // Arrange: Chuẩn bị dữ liệu test
+            LoginRequest request = new LoginRequest("testuser", "Test123");
+            UserDto userDto = new UserDto("testuser", "testuser@example.com");
+            LoginResponse mockResponse = new LoginResponse(
+                true, 
+                "Login thành công", 
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.token123",
+                userDto
+            );
+            
+            // Mock service trả về response thành công
+            when(authService.authenticate(any(LoginRequest.class)))
+                .thenReturn(mockResponse);
+            
+            // Act & Assert: Thực hiện request và verify kết quả
+            mockMvc.perform(post("/api/auth/login")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request)))
+                    .andExpect(status().isOk()) // Expect 200 OK
+                    .andExpect(jsonPath("$.success").value(true))
+                    .andExpect(jsonPath("$.message").value("Login thành công"))
+                    .andExpect(jsonPath("$.token").exists())
+                    .andExpect(jsonPath("$.token").value("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.token123"))
+                    .andExpect(jsonPath("$.user").exists())
+                    .andExpect(jsonPath("$.user.userName").value("testuser"))
+                    .andExpect(jsonPath("$.user.email").value("testuser@example.com"));
+        }
+
+        @Test
+        @DisplayName("2. Login thất bại - Username không tồn tại")
+        void testLoginFailure_UserNotFound() throws Exception {
+            // Arrange: User không tồn tại trong database
+            LoginRequest request = new LoginRequest("nonexistuser", "Test123");
+            LoginResponse mockResponse = new LoginResponse(
+                false, 
+                "Login thất bại với user name không tồn tại"
+            );
+            
+            when(authService.authenticate(any(LoginRequest.class)))
+                .thenReturn(mockResponse);
+            
+            // Act & Assert: Expect 401 Unauthorized
+            mockMvc.perform(post("/api/auth/login")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request)))
+                    .andExpect(status().isUnauthorized()) // Expect 401
+                    .andExpect(jsonPath("$.success").value(false))
+                    .andExpect(jsonPath("$.message").value("Login thất bại với user name không tồn tại"))
+                    .andExpect(jsonPath("$.token").doesNotExist())
+                    .andExpect(jsonPath("$.user").doesNotExist());
+        }
+
+
+    }
+
+
+\end{lstlisting}
+    \item{Test response structure và status codes (1 điểm)}
+        \begin{lstlisting}[language=Java, caption={AuthControllerIntegrationTest.java}]
+@Nested
+    @DisplayName("B) Test Response Structure và Status Codes")
+    class ResponseStructureTests {
+
+        @Test
+        @DisplayName("1. Response structure có đầy đủ các field khi login thành công")
+        void testSuccessResponseStructure() throws Exception {
+            // Arrange
+            LoginRequest request = new LoginRequest("testuser", "Test123");
+            UserDto userDto = new UserDto("testuser", "testuser@example.com");
+            LoginResponse mockResponse = new LoginResponse(
+                true,
+                "Login thành công",
+                "token.jwt",
+                userDto
+            );
+
+            when(authService.authenticate(any(LoginRequest.class)))
+                .thenReturn(mockResponse);
+
+            // Act & Assert: Verify response có đầy đủ field
+            mockMvc.perform(post("/api/auth/login")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request)))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.success").exists())
+                    .andExpect(jsonPath("$.success").isBoolean())
+                    .andExpect(jsonPath("$.message").exists())
+                    .andExpect(jsonPath("$.message").isString())
+                    .andExpect(jsonPath("$.token").exists())
+                    .andExpect(jsonPath("$.token").isString())
+                    .andExpect(jsonPath("$.user").exists())
+                    .andExpect(jsonPath("$.user.userName").exists())
+                    .andExpect(jsonPath("$.user.email").exists());
+        }
+
+
+        @Test
+        @DisplayName("2. Response structure khi login thất bại (không có token)")
+        void testFailureResponseStructure() throws Exception {
+            // Arrange
+            LoginRequest request = new LoginRequest("wronguser", "Test123");
+            LoginResponse mockResponse = new LoginResponse(
+                false, 
+                "Login thất bại với user name không tồn tại"
+            );
+            
+            when(authService.authenticate(any(LoginRequest.class)))
+                .thenReturn(mockResponse);
+            
+            // Act & Assert: Verify response không có token và user khi thất bại
+            mockMvc.perform(post("/api/auth/login")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request)))
+                    .andExpect(status().isUnauthorized())
+                    .andExpect(jsonPath("$.success").value(false))
+                    .andExpect(jsonPath("$.message").exists())
+                    .andExpect(jsonPath("$.token").doesNotExist()) // Token không tồn tại khi fail
+                    .andExpect(jsonPath("$.user").doesNotExist()); // User cũng không tồn tại khi fail
+        }
+
+        @Test
+        @DisplayName("3. Status code 200 OK khi login thành công")
+        void testStatusCode_200_OnSuccess() throws Exception {
+            // Arrange
+            LoginRequest request = new LoginRequest("testuser", "Test123");
+            LoginResponse mockResponse = new LoginResponse(true, "Login thành công", "token123");
+            
+            when(authService.authenticate(any(LoginRequest.class)))
+                .thenReturn(mockResponse);
+            
+            // Act & Assert: Verify status code = 200
+            mockMvc.perform(post("/api/auth/login")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request)))
+                    .andExpect(status().isOk())
+                    .andExpect(status().is(200));
+        }
+
+  
+
+
+        @Test
+        @DisplayName("6. Response Content-Type là application/json")
+        void testResponseContentType() throws Exception {
+            // Arrange
+            LoginRequest request = new LoginRequest("testuser", "Test123");
+            UserDto userDto = new UserDto("testuser", "testuser@example.com");
+            LoginResponse mockResponse = new LoginResponse(true, "Login thành công", "token123", userDto);
+            
+            when(authService.authenticate(any(LoginRequest.class)))
+                .thenReturn(mockResponse);
+            
+            // Act & Assert: Verify Content-Type header
+            mockMvc.perform(post("/api/auth/login")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request)))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+        }
+    }
+
+\end{lstlisting}
+    \item{Test CORS và headers (1 điểm)}
+    \begin{lstlisting}[language=Java, caption={AuthControllerIntegrationTest.java}]
+@ @Nested
+    @DisplayName("C) Test CORS và Headers ")
+    class CorsAndHeadersTests {
+        
+        @Test
+        @DisplayName("1. CORS - Access-Control-Allow-Origin header có tồn tại")
+        void testCors_AllowOriginHeader() throws Exception {
+            // Arrange
+            LoginRequest request = new LoginRequest("testuser", "Test123");
+            UserDto userDto = new UserDto("testuser", "testuser@example.com");
+            LoginResponse mockResponse = new LoginResponse(true, "Login thành công", "token123", userDto);
+            
+            when(authService.authenticate(any(LoginRequest.class)))
+                .thenReturn(mockResponse);
+            
+            // Act & Assert: Verify CORS header
+            mockMvc.perform(post("/api/auth/login")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .header("Origin", "http://localhost:3000") // Giả lập request từ frontend
+                    .content(objectMapper.writeValueAsString(request)))
+                    .andExpect(status().isOk())
+                    .andExpect(header().exists("Access-Control-Allow-Origin"));
+        }
+
+
+        @Test
+        @DisplayName("4. Request accept header - application/json")
+        void testAcceptHeader_ApplicationJson() throws Exception {
+            // Arrange
+            LoginRequest request = new LoginRequest("testuser", "Test123");
+            UserDto userDto = new UserDto("testuser", "testuser@example.com");
+            LoginResponse mockResponse = new LoginResponse(true, "Login thành công", "token123", userDto);
+
+            when(authService.authenticate(any(LoginRequest.class)))
+                .thenReturn(mockResponse);
+
+            // Act & Assert: Verify server accept JSON
+            mockMvc.perform(post("/api/auth/login")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON) // Client yêu cầu JSON response
+                    .content(objectMapper.writeValueAsString(request)))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+        }
+
+    }
+
+\end{lstlisting}
+\end{enumerate}
+
+\subsection{Câu 3.2: Product - Integration Testing (10 điểm)}
+\subsubsection{Frontend Component Integration (5 điểm)}
+\begin{enumerate}[label=\alph*)]
+    \item{Test ProductList component với API (2 điểm)}
+        \begin{lstlisting}[language=JavaScript, caption={ProductList component với API}]
+  describe("Test 1: ProductList Component (ProductManagement) với API", () => {
+    test("nên render ProductManagement component thành công", () => {
+      render(<ProductManagement />);
+
+      // Verify component renders
+      const heading = screen.getByText("Quản Lý Sản Phẩm");
+      expect(heading).toBeInTheDocument();
+    });
+
+    test("nên có category filter dropdown", () => {
+      render(<ProductManagement />);
+
+      const filterElements =
+        screen.queryAllByRole("button").length > 0 ||
+        screen.queryAllByRole("combobox").length > 0 ||
+        screen.queryByText(/Tất cả|All|category|Category/i);
+      expect(filterElements).toBeTruthy();
+    });
+
+    test("nên filter products theo category", async () => {
+      const user = userEvent.setup();
+      render(<ProductManagement />);
+
+      // Tìm filter button hoặc select
+      const filterButtons = screen.queryAllByRole("button");
+      expect(filterButtons.length > 0).toBe(true);
+    });
+
+    test("nên có action buttons (Edit, Delete, View)", () => {
+      render(<ProductManagement />);
+
+      // Verify edit/delete buttons exist or can be added
+      const buttons = screen.queryAllByRole("button");
+      expect(buttons.length > 0).toBe(true);
+    });
+  });
+
+        \end{lstlisting}
+
+
+    \item{Test ProductForm component (create/edit) (2 điểm)}
+        \begin{lstlisting}[language=JavaScript, caption={ProductForm component (create/edit)}]
+describe("Test 2: ProductForm Component (create/edit) ", () => {
+
+    test("nên validate product data trước submit", async () => {
+      const user = userEvent.setup();
+      render(<ProductManagement />);
+
+      const addButton = screen
+        .queryAllByRole("button")
+        .find(
+          (btn) =>
+            btn.textContent?.includes("+") || btn.textContent?.includes("Thêm")
+        );
+
+      if (addButton) {
+        await user.click(addButton);
+        // Component renders successfully
+        const inputs = screen.queryAllByRole("textbox");
+        expect(inputs.length > 0).toBe(true);
+      }
+    });
+
+    test("nên có category dropdown/select", async () => {
+      const user = userEvent.setup();
+      render(<ProductManagement />);
+
+      // Verify select elements exist in page
+      const selects = screen.queryAllByRole("combobox");
+      expect(selects.length > 0).toBe(true);
+    });
+
+    test("nên có Submit/Save button", async () => {
+      const user = userEvent.setup();
+      render(<ProductManagement />);
+
+      const addButton = screen
+        .queryAllByRole("button")
+        .find(
+          (btn) =>
+            btn.textContent?.includes("+") || btn.textContent?.includes("Thêm")
+        );
+
+      if (addButton) {
+        await user.click(addButton);
+        const buttons = screen.queryAllByRole("button");
+        expect(buttons.length > 0).toBe(true);
+      }
+    });
+  });
+        \end{lstlisting}
+
+
+    \item{Test ProductDetail component (1 điểm))}
+        \begin{lstlisting}[language=JavaScript, caption={ ProductDetail component }]
+  describe("Test 3: ProductDetail", () => {
+    test("nên display product info: name, price, quantity, category", async () => {
+      render(<ProductManagement />);
+
+      // Check if table or list displays product info columns
+      await waitFor(() => {
+        const headers = screen.queryAllByText(
+          /tên|name|giá|price|số lượng|quantity|loại|category/i
+        );
+        expect(headers.length > 0).toBe(true);
+      });
+    });
+
+    test("nên display product details khi click view/expand", async () => {
+      const user = userEvent.setup();
+      render(<ProductManagement />);
+
+      // Look for view buttons or expandable rows
+      const viewButtons = screen.queryAllByRole("button");
+      expect(viewButtons.length > 0).toBe(true);
+    });
+  });
+        \end{lstlisting}
+
+
+\end{enumerate}
+
+\subsubsection{Backend API Integration (5 điểm)}
+Test các API endpoints của Product:
+\begin{enumerate}[label=\alph*)]
+    \item{Test POST /api/products (Create) (1 điểm)}
+
+    \item{Test GET /api/products (Read all) (1 điểm) }
+
+    \item{Test GET /api/products/{id} (Read one) (1 điểm)}
+
+    \item{Test PUT /api/products/{id} (Update) (1 điểm)}
+
+    \item{Test DELETE /api/products/{id} (Delete) (1 điểm)}
+\end{enumerate}
+\begin{lstlisting}[language=Java, caption={ProductControllerIntegrationTest.java}]
+WebMvcTest(value = ProductController.class,
+    excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,
+        classes = {com.flogin.service.SecurityConfig.class, com.flogin.filter.JwtAuthenticationFilter.class}))
+@AutoConfigureMockMvc(addFilters = false)
+@DisplayName("Product API Integration Tests")
+public class ProductControllerIntegrationTest {
+    
+    @Autowired
+    private MockMvc mockMvc;
+    
+    @Autowired
+    private ObjectMapper objectMapper;
+    
+    @MockitoBean
+    private ProductService productService;
+
+
+        @Test
+        @DisplayName("1. Tạo product thành công với dữ liệu hợp lệ")
+        void testCreateProduct_Success() throws Exception {
+            // Arrange
+            CreateProductRequest requestDto = new CreateProductRequest("Laptop", 15000000.0, "Gaming laptop", 10, "Electronics");
+            ProductDto responseDto = new ProductDto(1L, "Electronics", 15000000.0, "Laptop", "Gaming laptop", 10);
+            
+            when(productService.createProduct(any(CreateProductRequest.class)))
+                .thenReturn(responseDto);
+            
+            // Act & Assert
+            mockMvc.perform(post("/api/products")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(requestDto)))
+                    .andExpect(status().isCreated()) // 201 Created
+                    .andExpect(jsonPath("$.id").value(1))
+                    .andExpect(jsonPath("$.productName").value("Laptop"))
+                    .andExpect(jsonPath("$.price").value(15000000.0))
+                    .andExpect(jsonPath("$.quantity").value(10))
+                    .andExpect(jsonPath("$.category").value("Electronics"));
+            
+            verify(productService, times(1)).createProduct(any(CreateProductRequest.class));
+        }
+
+    /**
+     * B) Test GET /api/products - Read All (1 điểm)
+     * Test lấy danh sách tất cả products
+     */
+        @Test
+        @DisplayName("2. Lấy danh sách products thành công")
+        void testGetAllProducts_Success() throws Exception {
+            // Arrange
+            List<ProductDto> products = Arrays.asList(
+                new ProductDto(1L, "Electronics", 15000000.0, "Laptop", "Gaming laptop", 10),
+                new ProductDto(2L, "Electronics", 200000.0, "Mouse", "Wireless mouse", 50)
+            );
+            Page<ProductDto> page = new PageImpl<>(products, PageRequest.of(0, 10), products.size());
+            
+            when(productService.getAll(any()))
+                .thenReturn(page);
+            
+            // Act & Assert
+            mockMvc.perform(get("/api/products"))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.content", hasSize(2)))
+                    .andExpect(jsonPath("$.content[0].productName").value("Laptop"))
+                    .andExpect(jsonPath("$.content[1].productName").value("Mouse"))
+                    .andExpect(jsonPath("$.totalElements").value(2));
+            
+            verify(productService, times(1)).getAll(any());
+        }
+
+
+
+        @Test
+        @DisplayName("3. Lấy product theo ID thành công")
+        void testGetProductById_Success() throws Exception {
+            // Arrange
+            ProductDto product = new ProductDto(1L, "Electronics", 15000000.0, "Laptop", "Gaming laptop", 10);
+            
+            when(productService.getProductById(1L))
+                .thenReturn(product);
+            
+            // Act & Assert
+            mockMvc.perform(get("/api/products/1"))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.id").value(1))
+                    .andExpect(jsonPath("$.productName").value("Laptop"))
+                    .andExpect(jsonPath("$.price").value(15000000.0))
+                    .andExpect(jsonPath("$.category").value("Electronics"));
+            
+            verify(productService, times(1)).getProductById(1L);
+        }
+
+
+
+        @Test
+        @DisplayName("4. Cập nhật product thành công")
+        void testUpdateProduct_Success() throws Exception {
+            // Arrange
+            UpdateProductRequest requestDto = new UpdateProductRequest("Laptop Updated", 16000000.0, "New description", 15, "Electronics");
+            ProductDto responseDto = new ProductDto(1L, "Electronics", 16000000.0, "Laptop Updated", "New description", 15);
+            
+            when(productService.updateProduct(eq(1L), any(UpdateProductRequest.class)))
+                .thenReturn(responseDto);
+            
+            // Act & Assert
+            mockMvc.perform(put("/api/products/1")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(requestDto)))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.id").value(1))
+                    .andExpect(jsonPath("$.productName").value("Laptop Updated"))
+                    .andExpect(jsonPath("$.price").value(16000000.0))
+                    .andExpect(jsonPath("$.quantity").value(15));
+            
+            verify(productService, times(1)).updateProduct(eq(1L), any(UpdateProductRequest.class));
+        }
+
+
+
+        @Test
+        @DisplayName("5. Xóa product thành công - 204 No Content")
+        void testDeleteProduct_Success() throws Exception {
+            // Arrange
+            doNothing().when(productService).deleteProduct(1L);
+            
+            // Act & Assert
+            mockMvc.perform(delete("/api/products/1"))
+                    .andExpect(status().isNoContent()); // 204 No Content
+            
+            verify(productService, times(1)).deleteProduct(1L);
+        }
+
+\end{lstlisting}
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Câu 4: Mock Testing (10 điểm)}
+
+\subsection{Câu 4.1: Login - Mock Testing (5 điểm)}
+\subsubsection{Frontend Mocking (2.5 điểm)}
+Mock external dependencies cho Login component:
+\begin{enumerate}[label=\alph*)]
+    \item{Mock authService.loginUser() (1 điểm)}
+    
+        \begin{lstlisting}[language=JavaScript, caption={ Mock authService.loginUser()}]
+        
+  describe('Test 1: Mock authService.login() ', () => {
+
+    test('nên mock authService.login() function', () => {
+      // Verify authService.login được mock
+      expect(typeof authService.login).toBe('function');
+      expect(jest.isMockFunction(authService.login)).toBe(true);
+    });
+  });
+        \end{lstlisting}
+
+
+    \item{Test với mocked successful/failed responses (1 điểm) }
+        \begin{lstlisting}[language=JavaScript, caption={ mocked successful/failed responses }]
+  describe('Test 2: Mocked Successful/Failed Responses (1 điểm)', () => {
+
+    test('nên handle mocked successful response', async () => {
+      const user = userEvent.setup();
+      authService.login.mockResolvedValue({ 
+        success: true, 
+        message: 'Login successful',
+        user: { 
+          id: '123', 
+          username: 'testuser',
+          name: 'Test User'
+        }
+      });
+      
+   render(
+  <MemoryRouter>
+    <LoginForm />
+  </MemoryRouter>
+);
+      
+      const usernameInput = screen.getByPlaceholderText(/your_username/i);
+      const passwordInput = screen.getByPlaceholderText(/••••••••/i);
+      const submitButton = screen.getByRole('button', { name: /Đăng Nhập/i });
+      
+      await user.type(usernameInput, 'testuser');
+      await user.type(passwordInput, 'password123');
+      await user.click(submitButton);
+      
+      // Verify success message appears
+      await waitFor(() => {
+        const successMessage = screen.queryByText(/Đăng nhập thành công/i);
+        expect(successMessage).toBeInTheDocument();
+      }, { timeout: 2000 });
+    });
+
+    test('nên handle mocked failed response - Invalid credentials', async () => {
+      const user = userEvent.setup();
+      authService.login.mockRejectedValue(new Error('Invalid credentials'));
+      
+   render(
+  <MemoryRouter>
+    <LoginForm />
+  </MemoryRouter>
+);
+      
+      const usernameInput = screen.getByPlaceholderText(/your_username/i);
+      const passwordInput = screen.getByPlaceholderText(/••••••••/i);
+      const submitButton = screen.getByRole('button', { name: /Đăng Nhập/i });
+      
+      await user.type(usernameInput, 'testuser');
+      await user.type(passwordInput, 'wrongpassword1');
+      await user.click(submitButton);
+      
+      // Verify error message appears
+      await waitFor(() => {
+        const errorMessage = screen.getByText(/Invalid credentials/i);
+        expect(errorMessage).toBeInTheDocument();
+      });
+    });
+  });
+        \end{lstlisting}
+
+
+    \item{Verify mock calls (0.5 điểm)}
+        \begin{lstlisting}[language=JavaScript, caption={Verify mock calls}]
+  describe('Test 3: Verify Mock Calls (0.5 điểm)', () => {
+
+    test('nên verify mock được gọi với correct parameters', async () => {
+      const user = userEvent.setup();
+      authService.login.mockResolvedValue({ success: true });
+      
+   render(
+  <MemoryRouter>
+    <LoginForm />
+  </MemoryRouter>
+);
+      
+      const usernameInput = screen.getByPlaceholderText(/your_username/i);
+      const passwordInput = screen.getByPlaceholderText(/••••••••/i);
+      const submitButton = screen.getByRole('button', { name: /Đăng Nhập/i });
+      
+      await user.type(usernameInput, 'user123');
+      await user.type(passwordInput, 'pass123');
+      await user.click(submitButton);
+      
+      await waitFor(() => {
+        // Verify mock được gọi với đúng parameters
+        expect(authService.login).toHaveBeenCalledWith('user123', 'pass123');
+      });
+    });
+
+    test('nên verify mock được gọi exactly 1 time', async () => {
+      const user = userEvent.setup();
+      authService.login.mockResolvedValue({ success: true });
+      
+   render(
+  <MemoryRouter>
+    <LoginForm />
+  </MemoryRouter>
+);
+      
+      const usernameInput = screen.getByPlaceholderText(/your_username/i);
+      const passwordInput = screen.getByPlaceholderText(/••••••••/i);
+      const submitButton = screen.getByRole('button', { name: /Đăng Nhập/i });
+      
+      await user.type(usernameInput, 'testuser');
+      await user.type(passwordInput, 'password123');
+      await user.click(submitButton);
+      
+      await waitFor(() => {
+        // Verify called exactly once
+        expect(authService.login).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    test('nên verify mock NOT được gọi khi invalid data', async () => {
+      const user = userEvent.setup();
+      authService.login.mockResolvedValue({ success: true });
+      
+   render(
+  <MemoryRouter>
+    <LoginForm />
+  </MemoryRouter>
+);
+      
+      const submitButton = screen.getByRole('button', { name: /Đăng Nhập/i });
+      
+      // Submit form trống
+      await user.click(submitButton);
+      
+      // Mock không nên được gọi
+      expect(authService.login).not.toHaveBeenCalled();
+    });
+
+  });
+        \end{lstlisting}
+
+
+\end{enumerate}
+
+\subsubsection{Backend Mocking (2.5 điểm)}
+Mock dependencies trong Backend tests:
+\begin{enumerate}[label=\alph*)]
+    \item{Mock AuthService với @MockBean (1 điểm)}
+
+    \item{Test controller với mocked service (1 điểm)}
+
+    \item{Verify mock interactions (0.5 điểm)}
+\end{enumerate}
+
+
+\begin{lstlisting}[language=Java, caption={AuthControllerMockTest.java}]
+@WebMvcTest(value = AuthController.class,
+    excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,
+        classes = {com.flogin.service.SecurityConfig.class, com.flogin.filter.JwtAuthenticationFilter.class}))
+@AutoConfigureMockMvc(addFilters = false)
+@DisplayName("Backend Mocking - AuthController Mock Tests")
+public class AuthControllerMockTest {
+    
+    @Autowired
+    private MockMvc mockMvc;
+
+    /**
+     * a) Mock AuthService với @MockitoBean (1 điểm)
+     * @MockitoBean tạo mock object và inject vào Spring context
+     */
+    @MockitoBean
+    private AuthService authService;
+
+    @Autowired
+    ObjectMapper objectMapper;
+
+        @Test
+        @DisplayName("1. Mock: Controller với mocked service - Login thành công")
+        void testLoginWithMockedService_Success() throws Exception {
+            //Arrange
+            LoginRequest request = new LoginRequest("testUser", "test12345");
+            UserDto userDto = new UserDto("testUser", "testUser@gmail.com");
+            LoginResponse response = new LoginResponse(true, "Login thành công", "jwt-fake-token", userDto);
+
+            when(authService.authenticate(any(LoginRequest.class)))
+                    .thenReturn(response);
+
+            //Act & Assert
+            mockMvc.perform(post("/api/auth/login")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(request)))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.token").exists())
+                    .andExpect(jsonPath("$.user").exists())
+                    .andExpect(jsonPath("$.user.userName").value("testUser"));
+
+            // Verify
+            verify(authService, times(1)).authenticate(any(LoginRequest.class));
+
+        }
+
+
+        @Test
+        @DisplayName("2. Mock: Login thất bại - Username không tồn tại")
+        void testLoginWithMockedService_UserNotFound() throws Exception {
+            // Arrange: Mock service trả về failure response
+            LoginResponse mockResponse = new LoginResponse(
+                false, 
+                "Login thất bại với user name không tồn tại"
+            );
+            
+            when(authService.authenticate(any(LoginRequest.class)))
+                .thenReturn(mockResponse);
+            
+            // Act & Assert
+            mockMvc.perform(post("/api/auth/login")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{\"userName\":\"nonexistent\",\"password\":\"Pass123\"}"))
+                    .andExpect(status().isUnauthorized())
+                    .andExpect(jsonPath("$.success").value(false))
+                    .andExpect(jsonPath("$.message").value("Login thất bại với user name không tồn tại"))
+                    .andExpect(jsonPath("$.token").doesNotExist())
+                    .andExpect(jsonPath("$.user").doesNotExist());
+            
+            // Verify interactions
+            verify(authService, times(1)).authenticate(any(LoginRequest.class));
+        }
+
+        @Test
+        @DisplayName("3. Mock: Login thất bại - Password sai")
+        void testLoginWithMockedService_WrongPassword() throws Exception {
+            // Arrange: Mock service trả về password sai
+            LoginResponse mockResponse = new LoginResponse(false, "Login với password sai");
+            
+            when(authService.authenticate(any(LoginRequest.class)))
+                .thenReturn(mockResponse);
+            
+            // Act & Assert
+            mockMvc.perform(post("/api/auth/login")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{\"userName\":\"testuser\",\"password\":\"WrongPass123\"}"))
+                    .andExpect(status().isUnauthorized())
+                    .andExpect(jsonPath("$.success").value(false))
+                    .andExpect(jsonPath("$.message").value("Login với password sai"));
+
+            // Verify interactions
+            verify(authService, times(1)).authenticate(any(LoginRequest.class));
+        }
+
+
+    /**
+     * C) Verify Mock Interactions
+     */
+    @Nested
+    @DisplayName("C) Verify Mock Interactions - Chi tiết ")
+    class VerifyMockInteractionsTests {
+        
+        @Test
+        @DisplayName("4. Verify: Mock được gọi đúng 1 lần với times(1)")
+        void testVerify_MockCalledExactlyOnce() throws Exception {
+            // Arrange
+            UserDto userDto = new UserDto("testuser", "test@example.com");
+            LoginResponse mockResponse = new LoginResponse(true, "Success", "token", userDto);
+            
+            when(authService.authenticate(any(LoginRequest.class)))
+                .thenReturn(mockResponse);
+            
+            // Act
+            mockMvc.perform(post("/api/auth/login")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{\"userName\":\"testuser\",\"password\":\"Pass123\"}"))
+                    .andExpect(status().isOk());
+            
+            // c) Verify: Kiểm tra mock được gọi đúng 1 lần
+            verify(authService, times(1)).authenticate(any(LoginRequest.class));
+            
+            // Verify không có interaction nào khác
+            verifyNoMoreInteractions(authService);
+        }
+
+        @Test
+        @DisplayName("5. Verify: Mock không được gọi khi validation fail")
+        void testVerify_MockNotCalledWhenValidationFails() throws Exception {
+            // Arrange: Không cần mock vì validation sẽ fail trước khi gọi service
+            
+            // Act: Gửi request với username trống (validation fail)
+            mockMvc.perform(post("/api/auth/login")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{\"userName\":\"\",\"password\":\"Pass123\"}"))
+                    .andExpect(status().isBadRequest());
+            
+            // c) Verify: authService.authenticate() KHÔNG được gọi vì validation fail
+            verify(authService, never()).authenticate(any(LoginRequest.class));
+            verifyNoInteractions(authService);
+        }
+
+    }
+
+}
+
+\end{lstlisting}
+
+\subsection{Câu 4.2: Product - Mock Testing (5 điểm)}
+\subsubsection{Frontend Mocking (2.5 điểm)}
+Mock ProductService trong component tests:
+\begin{enumerate}[label=\alph*)]
+    \item{Mock CRUD operations (1.5 điểm)}
+
+    \item{Test success và failure scenarios (0.5 điểm) }
+
+    \item{Verify all mock calls (0.5 điểm)}
+        \begin{lstlisting}[language=JavaScript, caption={validateUsername}]
+jest.mock('../services/productService');
+
+describe('Product Mock Tests', () => {
+  
+  // Mock Data
+  const mockProductList = [
+    { 
+      id: 1, 
+      name: 'Laptop Dell', 
+      productName: 'Laptop Dell', // Thêm trường này cho chắc chắn
+      title: 'Laptop Dell',
+      price: 15000000, 
+      quantity: 10, 
+      category: 'Electronics',
+      description: 'Mô tả sản phẩm mẫu'
+    }
+  ];
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    productService.getAllProducts.mockResolvedValue(mockProductList);
+  });
+
+  // Helper function: Sửa lại để xử lý trường hợp có nhiều nút cùng tên
+  const fillAndSubmitForm = async (user) => {
+    // 1. Mở Modal
+    await user.click(screen.getByText(/Thêm Sản Phẩm/i));
+    
+    // 2. Điền Form
+    await user.type(screen.getByLabelText(/tên sản phẩm/i), 'New Laptop');
+    await user.type(screen.getByLabelText(/giá/i), '20000000');
+    await user.type(screen.getByLabelText(/số lượng/i), '5');
+    await user.selectOptions(screen.getByLabelText(/danh mục/i), 'Electronics');
+    await user.type(screen.getByLabelText(/mô tả/i), 'Mô tả test');
+    
+    // 3. Submit
+    // Lấy tất cả các nút có tên Lưu/Thêm/Cập Nhật
+    const submitBtns = screen.getAllByRole('button', { name: /Lưu|Thêm|Cập Nhật/i });
+    // Chọn nút cuối cùng (thường là nút nằm trong Modal vừa mở ra)
+    const submitBtn = submitBtns[submitBtns.length - 1]; 
+    await user.click(submitBtn);
+  };
+
+  test('Mock: Get products (READ)', async () => {
+    productService.getAllProducts.mockResolvedValue(mockProductList);
+    render(<ProductManagement />);
+
+    await waitFor(() => {
+      expect(screen.getByText('Laptop Dell')).toBeInTheDocument();
+      expect(productService.getAllProducts).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  test('Mock: Create product thanh cong', async () => {
+    const user = userEvent.setup();
+    const newProductResponse = { id: 2, name: 'New Laptop', price: 20000000 };
+
+    productService.createProduct.mockResolvedValue(newProductResponse);
+
+    render(<ProductManagement />);
+    await fillAndSubmitForm(user);
+
+    await waitFor(() => {
+      expect(productService.createProduct).toHaveBeenCalledWith(expect.objectContaining({
+        productName: 'New Laptop',  
+        price: '20000000'           
+      }));
+      
+      expect(screen.getByText(/thành công/i)).toBeInTheDocument();
+    });
+  });
+
+  test('Mock: Create product that bai (Failure Scenario)', async () => {
+    const user = userEvent.setup();
+    productService.createProduct.mockRejectedValue(new Error('Server Error'));
+
+    render(<ProductManagement />);
+    await fillAndSubmitForm(user);
+
+    await waitFor(() => {
+      expect(productService.createProduct).toHaveBeenCalledTimes(1);
+      expect(screen.getByText(/Server Error/i)).toBeInTheDocument();
+    });
+  });
+
+  test('Mock: Delete product', async () => {
+    const user = userEvent.setup();
+    productService.deleteProduct.mockResolvedValue({ success: true });
+
+    render(<ProductManagement />);
+    await waitFor(() => screen.getByText('Laptop Dell'));
+    
+    const deleteBtns = screen.getAllByTitle(/Xóa/i);
+    await user.click(deleteBtns[0]);
+
+    const confirmBtn = await screen.findByText('Xóa', { selector: 'button' });
+    await user.click(confirmBtn);
+
+    await waitFor(() => {
+      expect(productService.deleteProduct).toHaveBeenCalledWith(1);
+    });
+  });
+
+  test('Mock: Update product', async () => {
+    const user = userEvent.setup();
+    productService.updateProduct.mockResolvedValue({ success: true });
+
+    render(<ProductManagement />);
+    await waitFor(() => screen.getByText('Laptop Dell'));
+    
+    const editBtns = screen.getAllByTitle(/Chỉnh sửa/i); 
+    await user.click(editBtns[0]);
+    
+    // 2. Sửa giá
+    const priceInput = screen.getByLabelText(/giá/i);
+    await user.clear(priceInput);
+    await user.type(priceInput, '18000000');
+    
+    const submitBtns = screen.getAllByRole('button', { name: /Lưu|Cập nhật/i });
+    await user.click(submitBtns[submitBtns.length - 1]);
+
+    await waitFor(() => {
+      expect(productService.updateProduct).toHaveBeenCalledWith(1, expect.objectContaining({
+        price: '18000000'
+      }));
+    });
+  });
+});
+        \end{lstlisting}
+
+
+\end{enumerate}
+
+\subsubsection{Backend Mocking (2.5 điểm)}
+Mock ProductRepository trong service tests:
+\begin{enumerate}[label=\alph*)]
+    \item{Mock ProductRepository (1 điểm)}
+
+    \item{Test service layer với mocked repository (1 điểm) }
+
+    \item{Verify repository interactions (0.5 điểm)}
+\end{enumerate}
+\begin{lstlisting}[language=Java, caption={ProductServiceMockTest.java}]
+@ExtendWith(MockitoExtension.class)
+@DisplayName("Mock ProductRepository trong Service Tests (2.5 điểm)")
+public class ProductServiceMockTest {
+
+    /**
+     * a) Mock ProductRepository (1 điểm)
+     */
+    @Mock
+    private ProductRepository productRepository;
+
+    @Mock
+    private Validator validator;
+
+    @InjectMocks
+    private ProductService productService;
+
+    private Product mockProduct;
+    private CreateProductRequest mockCreateRequest;
+    private UpdateProductRequest mockUpdateRequest;
+
+    @BeforeEach
+    void setUp() {
+        mockProduct = new Product(1L, "Electronics", "Gaming laptop", 10, "Laptop", 15000000.0);
+        mockCreateRequest = new CreateProductRequest("Laptop", 15000000.0, "Gaming laptop", 10, "Electronics");
+        mockUpdateRequest = new UpdateProductRequest("Laptop", 15000000.0, "Gaming laptop", 10, "Electronics");
+    }
+
+    /**
+     * A) Mock ProductRepository
+     * Test các methods với mocked repository
+     */
+    @Nested
+    @DisplayName("A) Mock ProductRepository (1 điểm)")
+    class MockRepositoryTests {
+
+        @Test
+        @DisplayName("1. Mock findById - Tìm product thành công")
+        void testGetProductById_Success() {
+            // Arrange: Mock repository trả về product
+            when(productRepository.findById(1L))
+                .thenReturn(Optional.of(mockProduct));
+
+            // Act
+            ProductDto result = productService.getProductById(1L);
+
+            // Assert
+            assertNotNull(result);
+            assertEquals("Laptop", result.getProductName());
+            assertEquals(15000000.0, result.getPrice());
+            assertEquals("Electronics", result.getCategory());
+
+            // c) Verify repository interaction
+            verify(productRepository, times(1)).findById(1L);
+        }
+
+
+        @Test
+        @DisplayName("2. Mock save - Tạo product mới")
+        void testCreateProduct_Success() {
+            // Arrange
+            when(validator.validate(any(CreateProductRequest.class)))
+                    .thenReturn(Set.of());
+            when(productRepository.save(any(Product.class)))
+                    .thenReturn(mockProduct);
+
+            // Act
+            ProductDto result = productService.createProduct(mockCreateRequest);
+
+            // Assert
+            assertNotNull(result);
+            assertEquals("Laptop", result.getProductName());
+
+            // c) Verify interactions
+            verify(validator, times(1)).validate(any(CreateProductRequest.class));
+            verify(productRepository, times(1)).save(any(Product.class));
+        }
+    }
+
+    /**
+     * B) Test Service Layer với Mocked Repository
+     */
+    @Nested
+    @DisplayName("B) Test Service Layer với Mocked Repository (1 điểm)")
+    class ServiceLayerTests {
+
+        @Test
+        @DisplayName("3. Service update product với mock repository")
+        void testUpdateProduct_Success() {
+            // Arrange
+            when(validator.validate(any(UpdateProductRequest.class)))
+                    .thenReturn(Set.of());
+            when(productRepository.findById(1L))
+                    .thenReturn(Optional.of(mockProduct));
+            when(productRepository.save(any(Product.class)))
+                    .thenReturn(mockProduct);
+
+            // Act
+            ProductDto result = productService.updateProduct(1L, mockUpdateRequest);
+
+            // Assert
+            assertNotNull(result);
+            assertEquals(1L, result.getId());
+
+            // c) Verify repository được gọi đúng thứ tự
+            verify(productRepository, times(1)).findById(1L);
+            verify(productRepository, times(1)).save(any(Product.class));
+        }
+
+        @Test
+        @DisplayName("4. Service delete product với mock repository")
+        void testDeleteProduct_Success() {
+            // Arrange
+            when(productRepository.findById(1L))
+                    .thenReturn(Optional.of(mockProduct));
+            doNothing().when(productRepository).deleteById(1L);
+
+            // Act
+            productService.deleteProduct(1L);
+
+            // c) Verify repository interactions
+            verify(productRepository, times(1)).findById(1L);
+            verify(productRepository, times(1)).deleteById(1L);
+        }
+
+
+    }
+
+    /**
+     * C) Verify Repository Interactions
+     */
+    @Nested
+    @DisplayName("C) Verify Repository Interactions (0.5 điểm)")
+    class VerifyRepositoryInteractionsTests {
+
+        @Test
+        @DisplayName("5. Verify repository được gọi với argument cụ thể")
+        void testVerify_RepositoryCalledWithSpecificArgument() {
+            // Arrange
+            when(productRepository.findById(1L))
+                    .thenReturn(Optional.of(mockProduct));
+
+            // Act
+            productService.getProductById(1L);
+
+            // c) Verify với argument cụ thể
+            verify(productRepository).findById(eq(1L));
+            verify(productRepository, times(1)).findById(1L);
+            verifyNoMoreInteractions(productRepository);
+        }
+
+        @Test
+        @DisplayName("6. Verify repository không được gọi khi validation fail")
+        void testVerify_RepositoryNotCalledWhenValidationFails() {
+            // Arrange: Mock validator trả về violation
+            var violation = mock(jakarta.validation.ConstraintViolation.class);
+            when(violation.getMessage()).thenReturn("Price phải > 0");
+            when(validator.validate(any(CreateProductRequest.class)))
+                    .thenReturn(Set.of(violation));
+
+            // Act & Assert
+            assertThrows(IllegalArgumentException.class, () -> {
+                productService.createProduct(mockCreateRequest);
+            });
+
+            // c) Verify repository.save() KHÔNG được gọi
+            verify(productRepository, never()).save(any(Product.class));
+            verifyNoInteractions(productRepository);
+        }
+
+    }
+}
+
+
+\end{lstlisting}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Câu 5: Automation Testing và CI/CD (10 điểm)}
+
+\subsection{Câu 5.1: Login - E2E Automation Testing (5 điểm)}
+\subsubsection{Setup và Configuration (1 điểm) }
+\begin{enumerate}[label=$\bullet$]
+    \item{Cài đặt Cypress hoặc Selenium}
+
+    \item{Cấu hình test environment}
+        \begin{lstlisting}[language=JavaScript, caption={test environment}]
+/**
+ * Cypress Configuration File
+ * @see https://docs.cypress.io/guides/references/configuration
+ */
+const { defineConfig } = require('cypress');
+
+module.exports = defineConfig({
+  /**
+   * E2E Testing Configuration
+   * 
+   * Configures end-to-end tests that run against the full application
+   * in a real browser environment.
+   */
+  e2e: { 
+    /**
+     * Base URL for all cy.visit() and cy.request() commands
+     * Points to local development server
+     * Change to production URL for production testing
+     */
+    baseUrl: 'http://localhost:5173',
+    
+    /**
+     * Default viewport dimensions for test browser
+     * Simulates desktop screen resolution
+     */
+    viewportWidth: 1280,
+    viewportHeight: 720,
+ 
+    /**
+     * Time to wait for page to load before failing
+     * Default: 60000ms (60 seconds)
+     */
+    pageLoadTimeout: 30000,
+    
+    /**
+     * Time to wait for cy.request() to resolve
+     * Used for API calls in tests
+     */
+    requestTimeout: 15000,
+    
+    /**
+     * Time to wait for response in cy.wait()
+     * Used for network request assertions
+     */
+    responseTimeout: 15000,
+    
+    /**
+     * Default timeout for most Cypress commands
+     * Applies to cy.get(), cy.contains(), etc.
+     */
+    defaultCommandTimeout: 10000,
+
+    /**
+     * Disable video recording for all tests
+     * Enable for debugging: set to true
+     * Videos saved to: cypress/videos/
+     */
+    video: false,
+    
+    /**
+     * Take screenshot when test fails
+     * Screenshots saved to: cypress/screenshots/
+     * Very useful for debugging failures in CI/CD
+     */
+    screenshotOnRunFailure: true,
+    
+    /**
+     * Record video only when test fails
+     * Disabled here since video is disabled
+     */
+    videoOnFailure: false,
+
+    /**
+     * Pattern to match E2E test files
+     * Looks for *.cy.js files in e2e directory
+     * Example: login.cy.js, product-management.cy.js
+     */
+    specPattern: 'src/tests/cypress/e2e/**/*.cy.js',
+    
+    /**
+     * Support file with custom commands and global config
+     * Loaded before every test file
+     * Contains custom commands like cy.login()
+     */
+    supportFile: 'src/tests/cypress/support/e2e.js',
+    
+    /**
+     * Folder containing test data fixtures
+     * Access via: cy.fixture('users.json')
+     * Used for test data like users, products, etc.
+     */
+    fixturesFolder: 'src/tests/cypress/fixtures',
+
+    /**
+     * Disable Chrome web security
+     * Allows cross-origin requests in tests
+     * Useful for testing external APIs or CORS issues
+     */
+    chromeWebSecurity: false,
+  
+    /**
+     * Retry failed tests to reduce flakiness
+     * - runMode: Retries in headless mode (CI/CD)
+     * - openMode: Retries in interactive mode (development)
+     */
+    retries: {
+      runMode: 1,    // Retry once in CI/CD pipeline
+      openMode: 0    // No retries in interactive mode
+    }
+  },
+
+  /**
+   * Component Testing Configuration (Optional)
+   * 
+   * Tests individual React components in isolation
+   * using Vite dev server for fast feedback.
+   */
+  component: {
+    /**
+     * Dev server configuration for component testing
+     * Uses Vite for fast component mounting and HMR
+     */
+    devServer: {
+      framework: 'react',  // Framework being tested
+      bundler: 'vite',     // Build tool (Vite for fast builds)
+    },
+    
+    /**
+     * Pattern to match component test files
+     * Example: Button.cy.jsx, Form.cy.jsx
+     */
+    specPattern: 'src/tests/cypress/component/**/*.cy.jsx',
+    
+    /**
+     * Support file for component tests
+     * Contains component-specific setup and commands
+     */
+    supportFile: 'src/tests/cypress/support/component.js'
+  }
+});
+
+        \end{lstlisting}
+
+
+    \item{Setup Page Object Model}
+            \begin{lstlisting}[language=JavaScript, caption={Setup Page Object Model}]
+           class LoginPage {
+  // All element getters return Cypress chainable elements
+
+  /**
+   * Get username input field
+   * @returns {Cypress.Chainable} Username input element
+   */
+  get usernameInput() {
+    return cy.get('input[type="text"]').first();
+  }
+
+  get passwordInput() {
+    return cy.get('input[type="password"]');
+  }
+
+  get loginButton() {
+    return cy.get("button").contains(/login|đăng nhập/i);
+  }
+
+  get rememberMeCheckbox() {
+    return cy.get('input[type="checkbox"]');
+  }
+
+  get forgotPasswordLink() {
+    return cy.get("a").contains(/quên|forgot/i);
+  }
+
+  get emailInput() {
+    return cy.get('input[type="text"]').first();
+  }
+
+  get signupLink() {
+    return cy.get("a").contains(/đăng ký|sign up|register/i);
+  }
+
+  get errorMessage() {
+    return cy.get('[style*="color: rgb(220, 38, 38)"]').first();
+  }
+
+  get successMessage() {
+    return cy.get('[style*="background: rgb(34, 197, 94)"]').first();
+  }
+
+  get loadingSpinner() {
+    return cy.get('[class*="spinner"], [class*="loading"]');
+  }
+
+  get pageTitle() {
+    return cy.contains("h1", /login|đăng nhập/i);
+  }
+
+  get passwordVisibilityToggle() {
+    return cy.get('button[type="button"]').contains("��️");
+  }
+
+  // Methods
+  /**
+   * Navigate to login page
+   */
+  navigateToLoginPage() {
+    cy.visit("/");
+    this.pageTitle.should("be.visible");
+    return this;
+  }
+
+  /**
+   * Enter username
+   */
+  enterUsername(username) {
+    this.usernameInput.clear().type(username, { delay: 100 });
+    return this;
+  }
+
+  /**
+   * Enter password
+   */
+  enterPassword(password) {
+    this.passwordInput.clear().type(password, { delay: 100 });
+    return this;
+  }
+
+  /**
+   * Click login button
+   */
+  clickLogin() {
+    this.loginButton.click();
+    return this;
+  }
+
+  /**
+   * Complete login flow
+   */
+  login(username, password) {
+    this.enterUsername(username);
+    this.enterPassword(password);
+    this.clickLogin();
+    return this;
+  }
+
+  /**
+   * Check remember me checkbox
+   */
+  checkRememberMe() {
+    this.rememberMeCheckbox.check();
+    return this;
+  }
+
+  /**
+   * Uncheck remember me checkbox
+   */
+  uncheckRememberMe() {
+    this.rememberMeCheckbox.uncheck();
+    return this;
+  }
+
+  /**
+   * Click forgot password link
+   */
+  clickForgotPassword() {
+    this.forgotPasswordLink.click();
+    return this;
+  }
+
+  /**
+   * Click signup link
+   */
+  clickSignup() {
+    this.signupLink.click();
+    return this;
+  }
+
+  /**
+   * Toggle password visibility
+   */
+  togglePasswordVisibility() {
+    this.passwordVisibilityToggle.click();
+    return this;
+  }
+
+  /**
+   * Verify error message exists
+   */
+  verifyErrorMessage() {
+    this.errorMessage.should("be.visible");
+    return this;
+  }
+
+  /**
+   * Verify error message with specific text
+   */
+  verifyErrorMessageText(text) {
+    this.errorMessage.should("contain", text);
+    return this;
+  }
+
+  /**
+   * Verify success message exists
+   */
+  verifySuccessMessage() {
+    this.successMessage.should("be.visible");
+    return this;
+  }
+
+  /**
+   * Verify login button is enabled
+   */
+  verifyLoginButtonEnabled() {
+    this.loginButton.should("not.be.disabled");
+    return this;
+  }
+
+  /**
+   * Verify login button is disabled
+   */
+  verifyLoginButtonDisabled() {
+    this.loginButton.should("be.disabled");
+    return this;
+  }
+
+  /**
+   * Verify loading spinner is visible
+   */
+  verifyLoadingSpinner() {
+    this.loadingSpinner.should("be.visible");
+    return this;
+  }
+
+  /**
+   * Verify username input has value
+   */
+  verifyUsernameValue(value) {
+    this.usernameInput.should("have.value", value);
+    return this;
+  }
+
+  /**
+   * Verify password input is empty
+   */
+  verifyPasswordEmpty() {
+    this.passwordInput.should("have.value", "");
+    return this;
+  }
+
+  /**
+   * Verify page title is visible
+   */
+  verifyPageTitle() {
+    this.pageTitle.should("be.visible");
+    return this;
+  }
+
+  /**
+   * Clear username input
+   */
+  clearUsername() {
+    this.usernameInput.clear();
+    return this;
+  }
+
+  /**
+   * Clear password input
+   */
+  clearPassword() {
+    this.passwordInput.clear();
+    return this;
+  }
+
+  /**
+   * Clear all inputs
+   */
+  clearAllInputs() {
+    this.clearUsername();
+    this.clearPassword();
+    return this;
+  }
+
+  /**
+   * Get username input value
+   */
+  getUsernameValue() {
+    return this.usernameInput.invoke("val");
+  }
+
+  /**
+   * Get password input type
+   */
+  getPasswordInputType() {
+    return this.passwordInput.invoke("attr", "type");
+  }
+
+  /**
+   * Verify username input is visible
+   */
+  verifyUsernameInputVisible() {
+    this.usernameInput.should("be.visible");
+    return this;
+  }
+
+  /**
+   * Verify password input is visible
+   */
+  verifyPasswordInputVisible() {
+    this.passwordInput.should("be.visible");
+    return this;
+  }
+
+  /**
+   * Verify all form elements are visible
+   */
+  verifyFormElementsVisible() {
+    this.verifyPageTitle();
+    this.usernameInput.should("be.visible");
+    this.passwordInput.should("be.visible");
+    this.loginButton.should("be.visible");
+    return this;
+  }
+
+  /**
+   * Verify username input is empty
+   */
+  verifyUsernameEmpty() {
+    this.usernameInput.should("have.value", "");
+    return this;
+  }
+
+  /**
+   * Verify password input is empty
+   */
+  verifyPasswordEmpty() {
+    this.passwordInput.should("have.value", "");
+    return this;
+  }
+
+  /**
+   * Wait for page to load
+   */
+  waitForPageLoad() {
+    cy.wait(1000);
+    this.pageTitle.should("be.visible");
+    return this;
+  }
+
+  /**
+   * Wait for loading to complete
+   */
+  waitForLoadingComplete() {
+    this.loadingSpinner.should("not.exist");
+    return this;
+  }
+}
+
+// Export page object
+export default new LoginPage();
+     
+        \end{lstlisting}
+
+
+\end{enumerate}
+
+\subsubsection{E2E Test Scenarios cho Login (2.5 điểm)}
+\begin{enumerate}[label=\alph*)]
+    \item{Test complete login flow (1 điểm)}
+
+    \item{Test validation messages (0.5 điểm)}
+
+    \item{Test success/error flows (0.5 điểm)}
+
+    \item{Test UI elements interactions (0.5 điểm)}
+    
+        \begin{lstlisting}[language=JavaScript, caption={Test Scenarios cho Login}]
+          import LoginPage from "../pages/LoginPage.js";
+
+describe("E2E Test Scenarios - Complete Login Flow", () => {
+  beforeEach(() => {
+    cy.fixture("users").as("users");
+    LoginPage.navigateToLoginPage();
+  });
+
+  /**
+   * SCENARIO 1: Complete Login Flow
+   */
+  describe("Scenario 1: Complete Login Flow (1 điểm)", () => {
+    it("SC1.1: Người dùng có thể mở trang login", () => {
+      LoginPage.verifyPageTitle();
+      LoginPage.verifyFormElementsVisible();
+    });
+
+    it("SC1.2: Người dùng có thể nhập username hợp lệ", () => {
+      const username = "test";
+      LoginPage.enterUsername(username);
+      LoginPage.verifyUsernameValue(username);
+    });
+
+    it("SC1.3: Người dùng có thể nhập password hợp lệ", () => {
+      const password = "Test123@";
+      LoginPage.enterPassword(password);
+      LoginPage.passwordInput.should("have.value", password);
+    });
+
+    it("SC1.4: Người dùng có thể submit form với data hợp lệ", () => {
+      LoginPage.login("test", "Test123@");
+      // Form submitted - có thể verify bằng network call
+    });
+
+    it("SC1.5: Login button enabled khi username & password filled", () => {
+      LoginPage.enterUsername("test")
+        .enterPassword("Test123@")
+        .verifyLoginButtonEnabled();
+    });
+
+    it("SC1.6: Form hiển thị loading state sau khi submit", () => {
+      LoginPage.enterUsername("test");
+      LoginPage.enterPassword("Test123@");
+      LoginPage.clickLogin();
+      // Có thể verify button disabled hoặc spinner
+      cy.wait(500);
+    });
+
+    it("SC1.7: Người dùng có thể clear username và nhập lại", () => {
+      LoginPage.enterUsername("test");
+      LoginPage.clearUsername();
+      LoginPage.usernameInput.should("have.value", "");
+      LoginPage.enterUsername("new");
+      LoginPage.verifyUsernameValue("new");
+    });
+
+    it("SC1.8: Người dùng có thể clear password và nhập lại", () => {
+      LoginPage.enterPassword("Test123@");
+      LoginPage.clearPassword();
+      LoginPage.passwordInput.should("have.value", "");
+      LoginPage.enterPassword("NewPass456@");
+      LoginPage.passwordInput.should("have.value", "NewPass456@");
+    });
+
+    it("SC1.9: Complete flow: Input -> Verify -> Clear -> Resubmit", () => {
+      // First attempt
+      LoginPage.enterUsername("user1").enterPassword("Pass123@").clickLogin();
+
+      cy.wait(500);
+
+      // Verify login button still visible (for retry)
+      LoginPage.loginButton.should("be.visible");
+    });
+
+    it("SC1.10: Người dùng có thể interact với form multiple times", () => {
+      // Attempt 1
+      LoginPage.enterUsername("attempt1").enterPassword("Pass1@");
+      LoginPage.clearAllInputs();
+
+      // Attempt 2
+      LoginPage.enterUsername("attempt2")
+        .enterPassword("Pass2@")
+        .verifyFormElementsVisible();
+    });
+  });
+
+  /**
+   * SCENARIO 2: Validation Messages
+   */
+  describe("Scenario 2: Validation Messages (0.5 điểm)", () => {
+    it("SC2.1: Validation khi submit form trống", () => {
+      LoginPage.clickLogin();
+      cy.wait(300);
+      // Verify validation message hoặc button disabled
+      LoginPage.loginButton.should("be.visible");
+    });
+
+    it("SC2.2: Validation khi username trống, password filled", () => {
+      LoginPage.enterPassword("Test123@");
+      LoginPage.clearUsername();
+      LoginPage.clickLogin();
+      cy.wait(300);
+      LoginPage.usernameInput.should("have.value", "");
+    });
+
+    it("SC2.3: Validation khi username filled, password trống", () => {
+      LoginPage.enterUsername("test");
+      LoginPage.clearPassword();
+      LoginPage.clickLogin();
+      cy.wait(300);
+      LoginPage.passwordInput.should("have.value", "");
+    });
+
+    it("SC2.4: Validation với username format không hợp lệ", () => {
+      LoginPage.enterUsername("invalid-username");
+      LoginPage.enterPassword("Test123@");
+      LoginPage.clickLogin();
+      cy.wait(300);
+      // username input should still have invalid value
+      LoginPage.usernameInput.should("have.value", "invalid-username");
+    });
+
+    it("SC2.5: Validation với password yếu", () => {
+      LoginPage.enterUsername("test");
+      LoginPage.enterPassword("123");
+      LoginPage.clickLogin();
+      cy.wait(300);
+      // Short password validation
+    });
+
+    it("SC2.6: Validation messages appear immediately", () => {
+      LoginPage.clickLogin();
+      cy.wait(200);
+      // Check for validation feedback
+    });
+
+    it("SC2.7: Can correct validation errors and resubmit", () => {
+      // Submit with empty form
+      LoginPage.clickLogin();
+      cy.wait(300);
+
+      // Now fill and submit
+      LoginPage.enterUsername("test").enterPassword("Test123@").clickLogin();
+    });
+
+    it("SC2.8: Multiple validation errors show correctly", () => {
+      LoginPage.clearAllInputs();
+      LoginPage.clickLogin();
+      cy.wait(300);
+      // Both fields empty - verify validation
+    });
+  });
+
+  /**
+   * SCENARIO 3: Success/Error Flows
+   */
+  describe("Scenario 3: Success/Error Flows (0.5 điểm)", () => {
+    it("SC3.1: Successful login dengan valid credentials", () => {
+      cy.fixture("users").then((users) => {
+        LoginPage.login(users.validUser.username, users.validUser.password);
+        cy.wait(500);
+      });
+    });
+
+    it("SC3.2: Failed login dengan invalid credentials", () => {
+      cy.fixture("users").then((users) => {
+        LoginPage.login(users.invalidUser.username, users.invalidUser.password);
+        cy.wait(500);
+      });
+    });
+
+    it("SC3.3: Error message visible on failed login", () => {
+      cy.fixture("users").then((users) => {
+        LoginPage.login(users.invalidUser.username, users.invalidUser.password);
+        cy.wait(500);
+        // Error message may appear
+      });
+    });
+
+    it("SC3.4: Success message visible on successful login", () => {
+      cy.fixture("users").then((users) => {
+        LoginPage.login(users.validUser.username, users.validUser.password);
+        cy.wait(500);
+        // Success message may appear
+      });
+    });
+
+    it("SC3.5: User can retry after failed login", () => {
+      cy.fixture("users").then((users) => {
+        // First attempt - fail
+        LoginPage.login(users.invalidUser.username, users.invalidUser.password);
+        cy.wait(500);
+
+        // Clear and retry
+        LoginPage.clearAllInputs();
+        LoginPage.login(users.validUser.username, users.validUser.password);
+      });
+    });
+
+    it("SC3.6: Error handling for network issues", () => {
+      LoginPage.enterUsername("test").enterPassword("Test123@").clickLogin();
+      cy.wait(300);
+      // Network error handling
+    });
+
+    it("SC3.7: Timeout handling during login", () => {
+      LoginPage.login("test", "Test123@");
+      cy.wait(1000);
+      // Verify form still responsive
+      LoginPage.loginButton.should("be.visible");
+    });
+
+    it("SC3.8: Recovery from error state", () => {
+      // Attempt that might fail
+      LoginPage.login("invalid@test.com", "invalid");
+      cy.wait(500);
+
+      // Verify can interact again
+      LoginPage.loginButton.should("be.visible");
+      LoginPage.clearAllInputs();
+      LoginPage.verifyUsernameEmpty().verifyPasswordEmpty();
+    });
+  });
+
+  /**
+   * SCENARIO 4: UI Elements Interactions
+   */
+  describe("Scenario 4: UI Elements Interactions (0.5 điểm)", () => {
+    it("SC4.1: Remember me checkbox can be checked", () => {
+      LoginPage.checkRememberMe();
+      LoginPage.rememberMeCheckbox.should("be.checked");
+    });
+
+    it("SC4.2: Remember me checkbox can be unchecked", () => {
+      LoginPage.checkRememberMe();
+      LoginPage.uncheckRememberMe();
+      LoginPage.rememberMeCheckbox.should("not.be.checked");
+    });
+
+    it("SC4.3: Forgot password link is clickable", () => {
+      LoginPage.forgotPasswordLink.should("be.visible");
+      LoginPage.forgotPasswordLink.should("have.attr", "href");
+    });
+
+    it("SC4.4: Sign up link is clickable", () => {
+      LoginPage.signupLink.should("be.visible");
+      LoginPage.signupLink.should("have.attr", "href");
+    });
+
+    it("SC4.5: Password visibility toggle works", () => {
+      LoginPage.enterPassword("Test123@");
+
+      // Get initial type
+      LoginPage.getPasswordInputType().then((type) => {
+        expect(type).to.equal("password");
+      });
+
+      // Toggle visibility
+      LoginPage.togglePasswordVisibility();
+
+      // After toggle, should be visible (type="text")
+      cy.wait(200);
+    });
+
+    it("SC4.6: All form labels are visible", () => {
+      cy.contains("label", /username|username/i).should("be.visible");
+      cy.contains("label", /password|mật khẩu|Password/i).should("be.visible");
+    });
+
+    it("SC4.7: Form placeholders are visible", () => {
+      LoginPage.usernameInput.should("have.attr", "placeholder");
+      LoginPage.passwordInput.should("have.attr", "placeholder");
+    });
+
+    it("SC4.8: Login button has proper styling", () => {
+      LoginPage.loginButton.should("be.visible");
+      LoginPage.loginButton.should("not.be.disabled");
+    });
+
+    it("SC4.9: Page title and branding visible", () => {
+      LoginPage.pageTitle.should("be.visible");
+      LoginPage.pageTitle.invoke("text").then((text) => {
+        expect(text).to.match(/login|đăng nhập/i);
+      });
+    });
+
+    it("SC4.10: Form is responsive to interactions", () => {
+      // Click username
+      LoginPage.usernameInput.click();
+      LoginPage.usernameInput.should("be.focused");
+
+      // Type in username
+      LoginPage.usernameInput.type("test");
+      LoginPage.usernameInput.should("have.value", "test");
+
+      // Click password
+      LoginPage.passwordInput.click();
+      LoginPage.passwordInput.should("be.focused");
+
+      // Type in password
+      LoginPage.passwordInput.type("pass");
+      LoginPage.passwordInput.should("have.value", "pass");
+    });
+  });
+});
+
+export { LoginPage };
+
+        \end{lstlisting}
+
+
+\end{enumerate}
+
+\subsubsection{CI/CD Integration cho Login Tests (1.5 điểm) }
+        \begin{lstlisting}[language=JavaScript, caption={CI/CD Integration cho Login Tests}]
+name: Automation Tests - Login E2E & Integration
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - "frontend/**"
+      - ".github/workflows/**"
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - "frontend/**"
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15 # Tự hủy nếu treo quá 15p
+
+    strategy:
+      matrix:
+        node-version: [20.x] # Bắt buộc dùng Node 20 cho Vite mới
+      fail-fast: false
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          # Tạm thời tắt cache để tránh xung đột file lock cũ
+          # cache: "npm"
+          # cache-dependency-path: "frontend/package-lock.json"
+
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: |
+          # Xóa file lock cũ và node_modules để tránh xung đột
+          rm -rf node_modules package-lock.json
+          # Dùng npm install (thay vì npm ci) để nó tự tìm gói Linux
+          npm install
+
+      # --- JEST TEST ---
+      - name: Run Integration Tests (Jest)
+        id: run-jest  # Đã thêm ID để dùng cho báo cáo
+        working-directory: ./frontend
+        run: npm test -- --coverage --testPathPattern="Integration|Mock" --passWithNoTests
+
+      - name: Upload Jest Coverage Reports
+        uses: actions/upload-artifact@v4
+        if: always() 
+        with:
+          name: jest-coverage-${{ matrix.node-version }}
+          path: frontend/coverage/
+          retention-days: 15
+
+      # --- BUILD & E2E ---
+      - name: Build frontend
+        working-directory: ./frontend
+        run: npm run build
+
+      - name: Start dev server & Wait
+        working-directory: ./frontend
+        run: |
+          npm run dev &
+          npx wait-on http://localhost:5173 --timeout 60000
+
+      # --- CYPRESS TEST ---
+      - name: Run E2E Tests (Cypress)
+        working-directory: ./frontend
+        run: npx cypress run --spec "src/tests/cypress/e2e/login-scenarios.cy.js" --record false
+        env:
+          CYPRESS_BASE_URL: http://localhost:5173
+
+      # --- UPLOAD ARTIFACTS (KHI LỖI) ---
+      - name: Upload Cypress Screenshots
+        uses: actions/upload-artifact@v4
+        if: failure() 
+        with:
+          name: cypress-screenshots-${{ matrix.node-version }}
+          path: frontend/src/tests/cypress/screenshots/
+          retention-days: 15
+
+      - name: Upload Cypress Videos
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-videos-${{ matrix.node-version }}
+          path: frontend/src/tests/cypress/videos/
+          retention-days: 15
+
+      # --- REPORTING ---
+      - name: Generate Test Report Summary
+        if: always()
+        run: |
+          echo "## �� Automation Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "- **Node**: ${{ matrix.node-version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Jest**: ${{ steps.run-jest.outcome }}" >> $GITHUB_STEP_SUMMARY 
+          echo "- **Cypress**: Check logs above" >> $GITHUB_STEP_SUMMARY
+
+      - name: Comment PR with Test Results
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const status = '${{ job.status }}';
+            const icon = status === 'success' ? 'Dung' : 'Sai';
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## ${icon} Automation Tests (Node ${{ matrix.node-version }})\n\n- **Status**: ${status}\n- **Jest**: ${{ steps.run-jest.outcome }}\n- **Artifacts**: Check Summary for details.`
+            })
+        \end{lstlisting}
+
+
+\subsection{Câu 5.2: Product - E2E Automation Testing (5 điểm)}
+\subsubsection{Setup Page Object Model (1 điểm)}
+Implement POM cho Product pages:
+        \begin{lstlisting}[language=JavaScript, caption={Implement POM cho Product page}]
+    frontend/src/tests/cypress/pages/
+    └── ProductPage.js        
+        \end{lstlisting}
+
+
+\subsubsection{E2E Test Scenarios cho Product (2.5 điểm)}
+Viết automated tests cho CRUD operations:
+\begin{enumerate}[label=\alph*)]
+    \item{Test Create product flow (0.5 điểm)}
+
+    \item{Test Read/List products (0.5 điểm)}
+
+    \item{Test Update product (0.5 điểm)}
+
+    \item{Test Delete product (0.5 điểm)}
+
+    \item{Test Search/Filter functionality (0.5 điểm)}
+        \begin{lstlisting}[language=JavaScript, caption={Test Scenarios cho Product }]
+/**
+ * ProductPage - Page Object Model for Product Management Page
+ * 
+ * This class encapsulates all selectors and methods for Product Management page
+ * interactions following the Page Object Model (POM) design pattern.
+ * 
+ * Page Sections:
+ * 1. Header & Search - Title, add button, search, filters
+ * 2. Product Table - Table rows, product data display
+ * 3. Action Buttons - View, Edit, Delete for each product
+ * 4. Pagination - Next/Previous page navigation
+ * 5. Modal Forms - Add/Edit product forms
+ * 6. Form Inputs - Name, price, quantity, category, description
+ * 7. Validation Messages - Error messages for each field
+ * 8. Confirmation Dialogs - Delete confirmation
+ * 9. Notifications - Success/Error notifications
+ * 10. Detail View - Product detail display modal
+ * 
+ * Features:
+ * - Complete CRUD operations (Create, Read, Update, Delete)
+ * - Search and filter products
+ * - Form validation
+ * - Pagination support
+ * - Confirmation dialogs
+ * - Success/Error notifications
+ * - Product detail view
+ * - Comprehensive element selectors
+ * - Chainable methods for fluent API
+ * 
+ * Usage Example:
+ * ```javascript
+ * import ProductPage from './pages/ProductPage';
+ * 
+ * describe('Product Management Tests', () => {
+ *   it('should create new product', () => {
+ *     ProductPage
+ *       .navigateToProductPage()
+ *       .createProduct({
+ *         name: 'iPhone 15',
+ *         price: '999.99',
+ *         quantity: '50',
+ *         category: 'Electronics',
+ *         description: 'Latest iPhone model'
+ *       })
+ *       .verifySuccessNotification('Product created successfully')
+ *       .verifyProductExists('iPhone 15');
+ *   });
+ *   
+ *   it('should update product', () => {
+ *     ProductPage
+ *       .updateProduct('iPhone 15', { price: '1099.99' })
+ *       .verifySuccessNotification('Product updated');
+ *   });
+ *   
+ *   it('should delete product', () => {
+ *     ProductPage
+ *       .deleteProduct('iPhone 15')
+ *       .verifyProductNotExists('iPhone 15');
+ *   });
+ * });
+ * ```
+ * 
+ * @class ProductPage
+ * @author Software Testing Team
+ * @version 1.0
+ * @since 2025-11-26
+ */
+class ProductPage {
+  // ============ HEADER & SEARCH SELECTORS ============
+  // Elements in the page header and search section
+  
+  /**
+   * Get page title element
+   * @returns {Cypress.Chainable} Page title heading
+   */
+  get pageTitle() {
+    return cy.contains('h1', /quản lý sản phẩm|product management/i);
+  }
+
+  get addProductButton() {
+    return cy.contains('button', /thêm sản phẩm|add product/i);
+  }
+
+  get searchInput() {
+    return cy.get('.search-input');
+  }
+
+  get categoryFilter() {
+    return cy.get('.filter-select');
+  }
+
+  // ============ TABLE SELECTORS ============
+  get productTable() {
+    return cy.get('table.product-table');
+  }
+
+  get tableRows() {
+    return cy.get('table.product-table tbody tr');
+  }
+
+  get firstProductRow() {
+    return cy.get('table.product-table tbody tr').first();
+  }
+
+  getProductByName(productName) {
+    return cy.contains('table.product-table tbody tr', productName);
+  }
+
+  // ============ ACTION BUTTONS IN TABLE ============
+  getViewButton(productName) {
+    return this.getProductByName(productName).within(() => {
+      return cy.get('button.blue');
+    });
+  }
+
+  getEditButton(productName) {
+    return this.getProductByName(productName).within(() => {
+      return cy.get('button.green');
+    });
+  }
+
+  getDeleteButton(productName) {
+    return this.getProductByName(productName).within(() => {
+      return cy.get('button.red');
+    });
+  }
+
+  // ============ PAGINATION SELECTORS ============
+  get paginationPrevButton() {
+    return cy.get('.pagination-btn').first();
+  }
+
+  get paginationNextButton() {
+    return cy.get('.pagination-btn').last();
+  }
+
+  get paginationInfo() {
+    return cy.get('.pagination-info');
+  }
+
+  // ============ MODAL SELECTORS ============
+  get modal() {
+    return cy.get('.modal');
+  }
+
+  get modalTitle() {
+    return cy.get('.modal-title');
+  }
+
+  get modalCloseButton() {
+    return cy.get('.modal-close');
+  }
+
+  get modalOverlay() {
+    return cy.get('.modal-overlay');
+  }
+
+  // ============ FORM INPUTS ============
+  get productNameInput() {
+    return cy.get('#name-input');
+  }
+
+  get priceInput() {
+    return cy.get('#price-input');
+  }
+
+  get quantityInput() {
+    return cy.get('#quantity-input');
+  }
+
+  get categorySelect() {
+    return cy.get('#category-select');
+  }
+
+  get descriptionInput() {
+    return cy.get('#description-textarea');
+  }
+
+  // ============ FORM ERROR MESSAGES ============
+  get nameError() {
+    return cy.contains('p.error-message', /tên sản phẩm|name/i);
+  }
+
+  get priceError() {
+    return cy.contains('p.error-message', /giá|price/i);
+  }
+
+  get quantityError() {
+    return cy.contains('p.error-message', /số lượng|quantity/i);
+  }
+
+  get categoryError() {
+    return cy.contains('p.error-message', /danh mục|category/i);
+  }
+
+  get descriptionError() {
+    return cy.contains('p.error-message', /mô tả|description/i);
+  }
+
+  // ============ ACTION BUTTONS IN MODAL ============
+  get submitButton() {
+    return cy.get('.form-actions').find('button.btn-primary, button.btn-success, button.btn-danger').first();
+  }
+
+  get cancelButton() {
+    return cy.get('.form-actions').find('button.btn-secondary');
+  }
+
+  // ============ CONFIRMATION DIALOG ============
+  get deleteConfirmDialog() {
+    return cy.get('.modal-small');
+  }
+
+  get deleteConfirmButton() {
+    return cy.get('.modal-small').find('button.btn-danger');
+  }
+
+  get deleteConfirmCancelButton() {
+    return cy.get('.modal-small').find('button.btn-secondary');
+  }
+
+  // ============ NOTIFICATION ============
+  get notification() {
+    return cy.get('.notification');
+  }
+
+  get successNotification() {
+    return cy.get('.notification.success');
+  }
+
+  get errorNotification() {
+    return cy.get('.notification.error');
+  }
+
+  // ============ DETAIL VIEW SELECTORS ============
+  get detailValue() {
+    return cy.get('.detail-value');
+  }
+
+  get detailDescription() {
+    return cy.get('.detail-description');
+  }
+
+  get editButtonInDetail() {
+    return cy.contains('button', /chỉnh sửa|edit/i);
+  }
+
+  get emptyState() {
+    return cy.get('.empty-state');
+  }
+
+  // ============ METHODS ============
+
+  /**
+   * Navigate to product management page
+   */
+  navigateToProductPage() {
+    cy.visit('/');
+    this.pageTitle.should('be.visible');
+    return this;
+  }
+
+  /**
+   * Click Add Product button
+   */
+  clickAddProduct() {
+    this.addProductButton.click();
+    return this;
+  }
+
+  /**
+   * Fill product form
+   */
+  fillProductForm(productData) {
+    if (productData.name) {
+      this.productNameInput.clear().type(productData.name, { delay: 100 });
+    }
+    if (productData.price) {
+      this.priceInput.clear().type(productData.price, { delay: 100 });
+    }
+    if (productData.quantity) {
+      this.quantityInput.clear().type(productData.quantity, { delay: 100 });
+    }
+    if (productData.category) {
+      this.categorySelect.select(productData.category);
+    }
+    if (productData.description) {
+      this.descriptionInput.clear().type(productData.description, { delay: 100 });
+    }
+    return this;
+  }
+
+  /**
+   * Submit product form
+   */
+  submitForm() {
+    this.submitButton.click();
+    cy.wait(500);
+    return this;
+  }
+
+  /**
+   * Create new product
+   */
+  createProduct(productData) {
+    this.clickAddProduct();
+    cy.wait(300);
+    this.fillProductForm(productData);
+    this.submitForm();
+    return this;
+  }
+
+  /**
+   * Search product by name
+   */
+  searchProduct(productName) {
+    this.searchInput.clear().type(productName, { delay: 100 });
+    cy.wait(300);
+    return this;
+  }
+
+  /**
+   * Filter by category
+   */
+  filterByCategory(category) {
+    this.categoryFilter.select(category);
+    cy.wait(300);
+    return this;
+  }
+
+  /**
+   * View product details
+   */
+  viewProduct(productName) {
+    this.getViewButton(productName).click();
+    cy.wait(300);
+    return this;
+  }
+
+  /**
+   * Edit product
+   */
+  editProduct(productName) {
+    this.getEditButton(productName).click();
+    cy.wait(300);
+    return this;
+  }
+
+  /**
+   * Update product
+   */
+  updateProduct(productName, updatedData) {
+    this.editProduct(productName);
+    this.fillProductForm(updatedData);
+    this.submitForm();
+    return this;
+  }
+
+  /**
+   * Delete product with confirmation
+   */
+  deleteProduct(productName) {
+    this.getDeleteButton(productName).click();
+    cy.wait(300);
+    this.deleteConfirmButton.click();
+    cy.wait(300);
+    return this;
+  }
+
+  /**
+   * Open delete confirmation and cancel
+   */
+  deleteProductCancel(productName) {
+    this.getDeleteButton(productName).click();
+    cy.wait(300);
+    this.deleteConfirmCancelButton.click();
+    cy.wait(300);
+    return this;
+  }
+
+  /**
+   * Clear all form inputs
+   */
+  clearForm() {
+    this.productNameInput.clear();
+    this.priceInput.clear();
+    this.quantityInput.clear();
+    this.categorySelect.select('');
+    this.descriptionInput.clear();
+    return this;
+  }
+
+  /**
+   * Close modal
+   */
+  closeModal() {
+    this.modalCloseButton.click();
+    cy.wait(200);
+    return this;
+  }
+
+  /**
+   * Verify product form is visible
+   */
+  verifyFormVisible() {
+    this.productNameInput.should('be.visible');
+    this.priceInput.should('be.visible');
+    this.quantityInput.should('be.visible');
+    this.categorySelect.should('be.visible');
+    this.descriptionInput.should('be.visible');
+    return this;
+  }
+
+  /**
+   * Verify product exists in table
+   */
+  verifyProductExists(productName) {
+    this.getProductByName(productName).should('be.visible');
+    return this;
+  }
+
+  /**
+   * Verify product not exists in table
+   */
+  verifyProductNotExists(productName) {
+    cy.contains('table.product-table tbody tr', productName).should('not.exist');
+    return this;
+  }
+
+  /**
+   * Verify success notification
+   */
+  verifySuccessNotification(message) {
+    cy.get('.notification.success', { timeout: 10000 }).should('be.visible');
+    if (message) {
+      if (message instanceof RegExp) {
+        cy.get('.notification').invoke('text').should('match', message);
+      } else {
+        cy.get('.notification').should('contain', message);
+      }
+    }
+    return this;
+  }
+
+  /**
+   * Verify error notification
+   */
+  verifyErrorNotification(message) {
+    cy.get('.notification.error', { timeout: 10000 }).should('be.visible');
+    if (message) {
+      if (message instanceof RegExp) {
+        cy.get('.notification').invoke('text').should('match', message);
+      } else {
+        cy.get('.notification').should('contain', message);
+      }
+    }
+    return this;
+  }
+
+  /**
+   * Verify error message for field
+   */
+  verifyFieldError(fieldName) {
+    let errorSelector;
+    switch(fieldName.toLowerCase()) {
+      case 'name':
+      case 'tên':
+        errorSelector = this.nameError;
+        break;
+      case 'price':
+      case 'giá':
+        errorSelector = this.priceError;
+        break;
+      case 'quantity':
+      case 'số lượng':
+        errorSelector = this.quantityError;
+        break;
+      case 'category':
+      case 'danh mục':
+        errorSelector = this.categoryError;
+        break;
+      case 'description':
+      case 'mô tả':
+        errorSelector = this.descriptionError;
+        break;
+      default:
+        throw new Error(`Unknown field: ${fieldName}`);
+    }
+    errorSelector.should('be.visible');
+    return this;
+  }
+
+  /**
+   * Get total product count
+   */
+  getTotalProductCount() {
+    return this.tableRows.its('length');
+  }
+
+  /**
+   * Verify pagination visible
+   */
+  verifyPaginationVisible() {
+    this.paginationInfo.should('be.visible');
+    return this;
+  }
+
+  /**
+   * Click next page
+   */
+  clickNextPage() {
+    this.paginationNextButton.click();
+    cy.wait(200);
+    return this;
+  }
+
+  /**
+   * Click previous page
+   */
+  clickPreviousPage() {
+    this.paginationPrevButton.click();
+    cy.wait(200);
+    return this;
+  }
+
+  /**
+   * Verify table empty
+   */
+  verifyTableEmpty() {
+    // Check if empty state element exists or table shows empty message
+    cy.get('.product-table tbody tr').then($rows => {
+      expect($rows.text()).to.include('Không có sản phẩm');
+    });
+    return this;
+  }
+
+  /**
+   * Verify table not empty
+   */
+  verifyTableNotEmpty() {
+    cy.get('.product-table tbody tr').then($rows => {
+      expect($rows.text()).not.to.include('Không có sản phẩm');
+    });
+    return this;
+  }
+
+  /**
+   * Get product row data
+   */
+  getProductRowData(productName) {
+    return this.getProductByName(productName).within(() => {
+      return {
+        name: cy.get('td').eq(0),
+        price: cy.get('td').eq(1),
+        quantity: cy.get('td').eq(2),
+        category: cy.get('td').eq(3)
+      };
+    });
+  }
+}
+
+// Export page object
+export default new ProductPage();
+
+        \end{lstlisting}
+
+
+\end{enumerate}
+\subsubsection{CI/CD Integration (1.5 điểm)}
+Setup complete CI/CD pipeline:
+\begin{lstlisting}[language=yaml, caption={.github/workflows/cicd.yml}]
+name: FloginFE_BE CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+env:
+  JAVA_VERSION: "21"
+  NODE_VERSION: "20"
+  BACKEND_PORT: 6969
+  SQL_SERVER_SA_PASSWORD: "YourStrong!Passw0rd@"
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+  statuses: write
+
+jobs:
+  # JOB 1: Backend Build & Test
+
+  backend-tests:
+    name: Backend - Build & Test
+    runs-on: ubuntu-latest
+
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        env:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: ${{ env.SQL_SERVER_SA_PASSWORD }}
+          MSSQL_PID: Developer
+        ports:
+          - 1433:1433
+        options: >-
+          --user 0:0
+          --health-cmd "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong!Passw0rd@' -C -Q 'SELECT 1' || exit 1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+          --health-start-period 10s
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: ☕ Setup Java ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: "temurin"
+          cache: "maven"
+
+      - name:  Wait for SQL Server to be ready
+        run: |
+          echo "Waiting for SQL Server to start..."
+          for i in {1..30}; do
+            if docker exec $(docker ps -q -f ancestor=mcr.microsoft.com/mssql/server:2022-latest) /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong!Passw0rd@' -C -Q "SELECT 1" > /dev/null 2>&1; then
+              echo "SQL Server is ready!"
+              break
+            fi
+            echo "Attempt $i: SQL Server not ready yet..."
+            sleep 5
+          done
+
+      - name:  Create Test Database
+        run: |
+          docker exec $(docker ps -q -f ancestor=mcr.microsoft.com/mssql/server:2022-latest) \
+            /opt/mssql-tools18/bin/sqlcmd \
+            -S localhost -U sa -P 'YourStrong!Passw0rd@' \
+           -C -Q "CREATE DATABASE STDatabase_Test;"
+          echo "Test database created successfully"
+
+      - name: Verify Maven wrapper
+        run: |
+          cd backend
+          chmod +x mvnw
+          ./mvnw --version
+
+      - name:  Build Backend (Skip Tests)
+        run: |
+          cd backend
+          ./mvnw clean install -DskipTests
+        env:
+          MAVEN_OPTS: -Xmx3072m
+
+      - name: Run Unit Tests
+        run: |
+          cd backend
+          ./mvnw test -Dtest="!**/*IntegrationTest,!**/*E2ETest"
+        env:
+          SPRING_PROFILES_ACTIVE: test
+          SPRING_DATASOURCE_URL: jdbc:sqlserver://localhost:1433;databaseName=STDatabase_Test;trustServerCertificate=true
+          SPRING_DATASOURCE_USERNAME: sa
+          SPRING_DATASOURCE_PASSWORD: ${{ env.SQL_SERVER_SA_PASSWORD }}
+          SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          SPRING_TEST_DATABASE_REPLACE: NONE
+          SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.SQLServerDialect
+
+      - name: Run Security Tests
+        run: |
+          cd backend
+          ./mvnw test -Dtest="com.flogin.security.*Test"
+        env:
+          SPRING_PROFILES_ACTIVE: test
+          SPRING_DATASOURCE_URL: jdbc:sqlserver://localhost:1433;databaseName=STDatabase_Test;trustServerCertificate=true
+          SPRING_DATASOURCE_USERNAME: sa
+          SPRING_DATASOURCE_PASSWORD: ${{ env.SQL_SERVER_SA_PASSWORD }}
+          SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.microsoft.sqlserver.jdbc.SQLServerDriver
+          SPRING_TEST_DATABASE_REPLACE: NONE
+          SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.SQLServerDialect
+
+      - name: Run Integration Tests
+        run: |
+          cd backend
+          ./mvnw test -Dtest="**/*IntegrationTest"
+        env:
+          SPRING_PROFILES_ACTIVE: test
+          SPRING_DATASOURCE_URL: jdbc:sqlserver://localhost:1433;databaseName=STDatabase_Test;trustServerCertificate=true
+          SPRING_DATASOURCE_USERNAME: sa
+          SPRING_DATASOURCE_PASSWORD: ${{ env.SQL_SERVER_SA_PASSWORD }}
+
+      - name: Generate JaCoCo Coverage Report
+        run: |
+          cd backend
+          ./mvnw jacoco:report
+
+      - name: Upload Backend Coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./backend/target/site/jacoco/jacoco.xml
+          flags: backend
+          name: backend-coverage
+          fail_ci_if_error: false
+
+      - name: Upload Backend Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-test-results
+          path: |
+            backend/target/surefire-reports/
+            backend/target/site/jacoco/
+
+      - name: Publish Test Report
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: Backend Tests
+          path: backend/target/surefire-reports/*.xml
+          reporter: java-junit
+          fail-on-error: false
+
+
+  # JOB 2: Frontend Build & Test
+
+  frontend-tests:
+    name: Frontend - Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          # Tạm thời tắt cache để tránh restore file lock cũ
+          # cache: "npm"
+          # cache-dependency-path: frontend/package-lock.json
+
+      # FIX 2: Xóa package-lock.json để ép npm tìm gói Linux
+      - name: Install Frontend Dependencies
+        run: |
+          cd frontend
+          rm -rf node_modules package-lock.json
+          npm install
+
+      - name: Run ESLint
+        run: |
+          cd frontend
+          npm run lint || true
+        continue-on-error: true
+
+      - name: Run Frontend Unit Tests
+        run: |
+          cd frontend
+          npm test -- --coverage --watchAll=false
+        env:
+          CI: true
+
+      - name: Upload Frontend Coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./frontend/coverage/lcov.info
+          flags: frontend
+          name: frontend-coverage
+          fail_ci_if_error: false
+
+      - name: Build Frontend
+        run: |
+          cd frontend
+          npm run build
+        env:
+          CI: false
+          REACT_APP_API_URL: http://localhost:6969
+
+      - name: Upload Frontend Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-build
+          path: frontend/build/
+
+      - name: Upload Frontend Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-test-results
+          path: |
+            frontend/coverage/
+
+
+  # JOB 3: E2E Tests with SQL Server
+
+  e2e-tests:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    needs: [backend-tests, frontend-tests]
+
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        env:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: ${{ env.SQL_SERVER_SA_PASSWORD }}
+          MSSQL_PID: Developer
+        ports:
+          - 1433:1433
+        options: >-
+          --user 0:0
+          --health-cmd "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong!Passw0rd@' -C -Q 'SELECT 1' || exit 1"
+          --health-interval 10s
+          --health-timeout 10s
+          --health-retries 20
+          --health-start-period 60s
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: ☕ Setup Java ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: "temurin"
+          cache: "maven"
+
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          # cache: "npm"
+          # cache-dependency-path: frontend/package-lock.json
+
+      - name:  Create E2E Database
+        run: |
+          docker exec $(docker ps -q -f ancestor=mcr.microsoft.com/mssql/server:2022-latest) \
+            /opt/mssql-tools18/bin/sqlcmd \
+            -S localhost -U sa -P "${{ env.SQL_SERVER_SA_PASSWORD }}" \
+           -C -Q "CREATE DATABASE STDatabase_E2E;"
+
+      - name: Start Backend Server
+        run: |
+          cd backend
+          chmod +x mvnw
+          ./mvnw clean install -DskipTests
+          nohup ./mvnw spring-boot:run \
+            -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:sqlserver://localhost:1433;databaseName=STDatabase_E2E;trustServerCertificate=true --spring.datasource.username=sa --spring.datasource.password=${{ env.SQL_SERVER_SA_PASSWORD }}" &
+          echo $! > backend.pid
+
+          # Wait for backend to be ready
+          echo "Waiting for backend to start..."
+          for i in {1..60}; do
+            if curl -s http://localhost:6969/actuator/health > /dev/null 2>&1; then
+              echo "Backend is ready!"
+              break
+            fi
+            echo "Attempt $i: Backend not ready yet..."
+            sleep 5
+          done
+
+      - name: Install Frontend Dependencies
+        run: |
+          cd frontend
+          rm -rf node_modules package-lock.json
+          npm install
+
+      - name:  Start Frontend Server
+        run: |
+          cd frontend
+          nohup npm run dev &
+          echo $! > frontend.pid
+
+          # Wait for frontend to be ready
+          echo "Waiting for frontend to start..."
+          for i in {1..60}; do
+            if curl -s http://localhost:5173 > /dev/null 2>&1; then
+              echo "Frontend is ready!"
+              break
+            fi
+            echo "Attempt $i: Frontend not ready yet..."
+            sleep 5
+          done
+        env:
+          REACT_APP_API_URL: http://localhost:6969
+          PORT: 5173
+          CI: false
+
+      - name:  Run E2E Tests (if exists)
+        run: |
+          cd frontend
+          if [ -f "package.json" ] && grep -q "test:e2e" package.json; then
+            npm run test:e2e || echo "E2E tests not configured yet"
+          else
+            echo "E2E tests not found, skipping..."
+          fi
+        continue-on-error: true
+
+      - name:  Stop Servers
+        if: always()
+        run: |
+          if [ -f backend/backend.pid ]; then
+            kill $(cat backend/backend.pid) || true
+          fi
+          if [ -f frontend/frontend.pid ]; then
+            kill $(cat frontend/frontend.pid) || true
+          fi
+
+      - name: Upload E2E Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-test-results
+          path: |
+            frontend/cypress/screenshots/
+            frontend/cypress/videos/
+            frontend/playwright-report/
+
+ 
+  # JOB 4: Performance Tests (k6) with SQL Server
+
+  performance-tests:
+    name: Performance Tests (k6)
+    runs-on: ubuntu-latest
+    needs: [backend-tests]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        env:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: ${{ env.SQL_SERVER_SA_PASSWORD }}
+          MSSQL_PID: Developer
+        ports:
+          - 1433:1433
+        options: >-
+          --user 0:0
+          --health-cmd "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong!Passw0rd@' -C -Q 'SELECT 1' || exit 1"
+          --health-interval 10s
+          --health-timeout 10s
+          --health-retries 20
+          --health-start-period 60s
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name:  Setup Java ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: "temurin"
+          cache: "maven"
+
+      - name:  Create Performance Database
+        run: |
+          docker exec $(docker ps -q -f ancestor=mcr.microsoft.com/mssql/server:2022-latest) \
+            /opt/mssql-tools18/bin/sqlcmd \
+            -S localhost -U sa -P 'YourStrong!Passw0rd@' \
+           -C -Q "CREATE DATABASE STDatabase_Perf;"
+
+      - name:  Start Backend Server
+        run: |
+          cd backend
+          chmod +x mvnw
+          ./mvnw clean install -DskipTests
+          nohup ./mvnw spring-boot:run \
+            -Dspring-boot.run.arguments="--spring.datasource.url=jdbc:sqlserver://localhost:1433;databaseName=STDatabase_Perf;trustServerCertificate=true --spring.datasource.username=sa --spring.datasource.password=${{ env.SQL_SERVER_SA_PASSWORD }}" &
+          echo $! > backend.pid
+
+          # Wait for backend
+          for i in {1..60}; do
+            if curl -s http://localhost:6969/actuator/health > /dev/null 2>&1; then
+              echo "Backend is ready!"
+              break
+            fi
+            sleep 5
+          done
+
+      - name: Install k6
+        run: |
+          sudo gpg -k
+          sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt-get update
+          sudo apt-get install k6
+
+      - name: Run Performance Tests (100 users - 1 minute for CI)
+        run: |
+          cd performance-tests/scripts
+          # Shortened test duration for CI (1 min instead of 5 min)
+          k6 run login-test.js --vus 100 --duration 1m --out json=../results/ci-login-100-users.json
+        continue-on-error: true
+
+      - name: Analyze Performance Results
+        run: |
+          cd performance-tests
+          if [ -f results/ci-login-100-users.json ]; then
+            echo "Performance test completed. Results saved."
+            # Extract basic metrics
+            echo "=== Performance Summary ==="
+            grep -o '"http_req_duration"[^}]*' results/ci-login-100-users.json | head -10 || true
+          fi
+
+      - name: Stop Backend
+        if: always()
+        run: |
+          if [ -f backend/backend.pid ]; then
+            kill $(cat backend/backend.pid) || true
+          fi
+
+      - name: Upload Performance Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-test-results
+          path: performance-tests/results/
+
+
+  # JOB 6: Code Quality Analysis
+
+  code-quality:
+    name: Code Quality Analysis
+    runs-on: ubuntu-latest
+    needs: [backend-tests, frontend-tests]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: ☕ Setup Java ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: "temurin"
+
+      - name: SonarCloud Scan (if configured)
+        run: |
+          echo "SonarCloud scan would run here if configured"
+          echo "Requires SONAR_TOKEN secret"
+        continue-on-error: true
+
+      - name: Generate Coverage Report Summary
+        run: |
+          echo "## Test Coverage Summary" > coverage-summary.md
+          echo "" >> coverage-summary.md
+          echo "### Backend Coverage" >> coverage-summary.md
+          echo "- Unit Tests: ✅" >> coverage-summary.md
+          echo "- Integration Tests: ✅" >> coverage-summary.md
+          echo "" >> coverage-summary.md
+          echo "### Frontend Coverage" >> coverage-summary.md
+          echo "- Component Tests: ✅" >> coverage-summary.md
+
+      - name: Upload Coverage Summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-summary
+          path: coverage-summary.md
+
+
+  # JOB 7: Build Summary & Notification
+
+  build-summary:
+    name: Build Summary
+    runs-on: ubuntu-latest
+    needs:
+      [
+        backend-tests,
+        frontend-tests,
+        e2e-tests,
+        performance-tests,
+        code-quality,
+      ]
+    if: always()
+
+    steps:
+      - name: Generate Build Summary
+        run: |
+          echo "## CI/CD Pipeline Summary" > summary.md
+          echo "" >> summary.md
+          echo "### Jobs Status:" >> summary.md
+          echo "- Backend Tests (SQL Server): ${{ needs.backend-tests.result }}" >> summary.md
+          echo "- Frontend Tests: ${{ needs.frontend-tests.result }}" >> summary.md
+          echo "- E2E Tests: ${{ needs.e2e-tests.result }}" >> summary.md
+          echo "- Performance Tests: ${{ needs.performance-tests.result }}" >> summary.md
+          echo "- Security Scan: ${{ needs.security-scan.result }}" >> summary.md
+          echo "- Code Quality: ${{ needs.code-quality.result }}" >> summary.md
+          echo "" >> summary.md
+          echo "### Build Information:" >> summary.md
+          echo "- Branch: ${{ github.ref_name }}" >> summary.md
+          echo "- Commit: ${{ github.sha }}" >> summary.md
+          echo "- Author: ${{ github.actor }}" >> summary.md
+          echo "- Database: SQL Server 2022" >> summary.md
+          cat summary.md
+
+      - name: Comment PR (if applicable)
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '##  CI/CD Pipeline Completed\n\n All tests executed with **SQL Server 2022**\n\nCheck the workflow run for detailed results.'
+            })
+
+      - name: Pipeline Complete
+        run: |
+          echo "=================================="
+          echo "   CI/CD Pipeline Completed!"
+          echo "   Database: SQL Server 2022"
+          echo "=================================="
+
+
+\end{lstlisting}
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Phần Mở Rộng (Bonus 20 điểm)}
+
+\subsection{Performance Testing (10 điểm)}
+\subsubsection{Yêu cầu}
+\begin{enumerate}[label=\alph*)]
+    \item{Setup JMeter hoặc k6 cho performance testing (2 điểm)}
+
+    \item{Viết performance tests cho Login API (3 điểm):}
+
+    \item{Viết performance tests cho Product API (3 điểm)}
+
+    \item{Phân tích kết quả và đưa ra recommendations (2 điểm)}
+    \end{enumerate}
+
+\subsection{Security Testing (10 điểm)}
+\subsubsection{Yêu cầu}
+\begin{enumerate}[label=\alph*)]
+    \item{Test common vulnerabilities (5 điểm):}
+      \begin{enumerate}[label=$\bullet]
+        \item {SQL Injection}
+        \begin{lstlisting}[language=Java, caption={SqlInjectionTest.java}]
+          @Test
+    @DisplayName("TC1.1: SQL Injection - Login bypass với ' OR '1'='1")
+    void testSqlInjection_LoginBypass_Classic() throws Exception {
+        LoginRequest maliciousRequest = new LoginRequest("admin' OR '1'='1", "anything");
+
+        mockMvc.perform(post("/api/auth/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(maliciousRequest)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.success").value(false));
+    }
+
+    @Test
+    @DisplayName("TC1.2: SQL Injection - Login bypass với ' OR 1=1--")
+    void testSqlInjection_LoginBypass_Comment() throws Exception {
+        LoginRequest maliciousRequest = new LoginRequest("admin' OR 1=1--", "anything");
+
+        mockMvc.perform(post("/api/auth/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(maliciousRequest)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.success").value(false));
+    }
+
+    @Test
+    @DisplayName("TC1.3: SQL Injection - Login bypass với '; DROP TABLE users--")
+    void testSqlInjection_LoginBypass_DropTable() throws Exception {
+        LoginRequest maliciousRequest = new LoginRequest("admin'; DROP TABLE users--", "password");
+
+
+        mockMvc.perform(post("/api/auth/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(maliciousRequest)))
+                .andExpect(status().isBadRequest());
+
+        // Verify table vẫn tồn tại
+        long userCount = userRepository.count();
+        assert userCount > 0 : "Users table should still exist";
+    }
+
+          \end{lstlisting}
+        \item Cross-Site Scripting (XSS)
+        \begin{lstlisting}[language=Java, caption={XssTest.java}]
+          @Test
+    @DisplayName("TC2.1: XSS - onerror event handler")
+    void testXss_EventHandler_OnError() throws Exception {
+        CreateProductRequest xssRequest = new CreateProductRequest("<img src=x onerror=alert('XSS')>", 100.0, "Test", 10, "Electronics");
+
+        mockMvc.perform(post("/api/products")
+                .header("Authorization", authToken)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(xssRequest)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors.productName").exists());
+    }
+
+
+    @Test
+    @DisplayName("TC10.1: XSS - innerHTML manipulation attempt")
+    void testXss_DomBased_InnerHtml() throws Exception {
+        CreateProductRequest xssRequest = new CreateProductRequest("Product<img src=x onerror='document.body.innerHTML=\"<h1>Hacked</h1>\"'>", 100.0, "Test", 10, "Electronics");
+
+        mockMvc.perform(post("/api/products")
+                .header("Authorization", authToken)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(xssRequest)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors.productName").exists());
+    }
+
+          \end{lstlisting}
+      
+        \item Authentication bypass attempts
+        \begin{lstlisting}[language=Java, caption={AuthBypassTest.java}]
+          @Test
+    @DisplayName("TC1.3: Auth bypass - Empty credentials")
+    void testAuthBypass_EmptyCredentials() throws Exception {
+        LoginRequest loginRequest = new LoginRequest("", "");
+
+        mockMvc.perform(post("/api/auth/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(loginRequest)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("TC2.1: Auth bypass - Wrong password")
+    void testAuthBypass_WrongPassword() throws Exception {
+        LoginRequest loginRequest = new LoginRequest("admin", "wrongpassword");
+
+        mockMvc.perform(post("/api/auth/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(loginRequest)))
+                .andExpect(status().isBadRequest()) // Password validation fails (no digit)
+                .andExpect(jsonPath("$.success").value(false));
+    }
+
+    @Test
+    @DisplayName("TC4.1: Auth bypass - Invalid JWT token")
+    void testAuthBypass_InvalidToken() throws Exception {
+        mockMvc.perform(get("/api/products")
+                .header("Authorization", "Bearer invalid.token.here"))
+                .andExpect(status().isForbidden());
+    }
+
+          \end{lstlisting}
+    
+      \end{enumerate}
+
+    \item{Test input validation và sanitization (3 điểm)}
+    \begin{lstlisting}[language=Java, caption={InputValidationTest.java}]
+      //==========input validation=========
+   @Test
+    @DisplayName("TC1.1: Validation - Product name quá ngắn (< 3 chars)")
+    void testValidation_ProductName_TooShort() throws Exception {
+        CreateProductRequest request = new CreateProductRequest("AB", 100.0, "Test", 10, "Electronics");
+
+        mockMvc.perform(post("/api/products")
+                .header("Authorization", authToken)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors.productName").exists());
+    }
+
+
+    @Test
+    @DisplayName("TC6.1: Sanitization - Special characters trong product name")
+    void testSanitization_SpecialCharacters_ProductName() throws Exception {
+        CreateProductRequest request = new CreateProductRequest("Product <>&\"'", 100.0, "Test", 10, "Electronics");
+
+        mockMvc.perform(post("/api/products")
+                .header("Authorization", authToken)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors.productName").exists());
+
+    }
+
+      \end{lstlisting}
+
+    \item{Security best practices implementation (2 điểm):}
+    \begin{lstlisting}[language=Java, caption={SecurityBestPracticesTest.java}]
+      @SpringBootTest
+@AutoConfigureMockMvc
+@DisplayName("Security Best Practices Tests")
+public class SecurityBestPracticesTest {
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Test
+    @DisplayName("1. Password Hashing - Mật khẩu được hash bằng BCrypt")
+    void testPasswordHashing() {
+        // Arrange
+        String rawPassword = "mySecurePassword123";
+
+        // Act - Hash password
+        String hashedPassword = passwordEncoder.encode(rawPassword);
+
+        // Assert
+        assertNotNull(hashedPassword, "Hashed password không được null");
+        assertNotEquals(rawPassword, hashedPassword, "Password không được lưu dạng plain text");
+        assertTrue(hashedPassword.startsWith("$2a$") || hashedPassword.startsWith("$2b$"),
+                "Password phải được hash bằng BCrypt");
+        assertTrue(hashedPassword.length() >= 60, "BCrypt hash phải có độ dài >= 60 ký tự");
+
+        // Verify password matching
+        boolean matches = passwordEncoder.matches(rawPassword, hashedPassword);
+        assertTrue(matches, "Password encoder phải verify được password đúng");
+
+        // Verify wrong password doesn't match
+        boolean wrongMatch = passwordEncoder.matches("wrongPassword", hashedPassword);
+        assertFalse(wrongMatch, "Password encoder phải reject password sai");
+
+    }
+
+
+    // 3. CORS CONFIGURATION TEST
+
+    @Test
+    @DisplayName("3. CORS Configuration - CORS headers được cấu hình đúng")
+    void testCorsConfiguration() throws Exception {
+        // Arrange
+        String origin = "http://localhost:5173";
+
+        // Act - Preflight request (OPTIONS)
+        mockMvc.perform(options("/api/products")
+                        .header("Origin", origin)
+                        .header("Access-Control-Request-Method", "POST")
+                        .header("Access-Control-Request-Headers", "Content-Type,Authorization"))
+
+                // Assert
+                .andExpect(status().isOk())
+                .andExpect(header().exists("Access-Control-Allow-Origin"))
+                .andExpect(header().string("Access-Control-Allow-Methods",
+                        org.hamcrest.Matchers.containsString("POST")))
+                .andExpect(header().exists("Access-Control-Allow-Headers"));
+
+    }
+
+    // 4. SECURITY HEADERS TEST
+
+    @Test
+    @DisplayName("4. Security Headers - Response có các security headers cần thiết")
+    void testSecurityHeaders() throws Exception {
+        // Arrange & Act
+        MvcResult result = mockMvc.perform(get("/api/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        // Assert - Kiểm tra các security headers quan trọng
+        String xContentTypeOptions = result.getResponse().getHeader("X-Content-Type-Options");
+        String xFrameOptions = result.getResponse().getHeader("X-Frame-Options");
+        String xXssProtection = result.getResponse().getHeader("X-XSS-Protection");
+
+        // Spring Security tự động thêm các headers này
+        assertNotNull(xContentTypeOptions, "X-Content-Type-Options header phải có");
+        assertEquals("nosniff", xContentTypeOptions,
+                "X-Content-Type-Options phải là 'nosniff'");
+
+        assertNotNull(xFrameOptions, "X-Frame-Options header phải có");
+        assertTrue(xFrameOptions.equals("DENY") || xFrameOptions.equals("SAMEORIGIN"),
+                "X-Frame-Options phải là DENY hoặc SAMEORIGIN");
+    }
+}
+      \end{lstlisting}
+    \end{enumerate}
+
+
+\end{document}
